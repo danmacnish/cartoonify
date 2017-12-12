@@ -18,13 +18,13 @@ import functools
 import numpy as np
 import tensorflow as tf
 
-from object_detection.core import anchor_generator
-from object_detection.core import box_list
-from object_detection.core import losses
-from object_detection.core import post_processing
-from object_detection.core import region_similarity_calculator as sim_calc
-from object_detection.meta_architectures import ssd_meta_arch
-from object_detection.utils import test_utils
+from app.object_detection.core import anchor_generator
+from app.object_detection.core import box_list
+from app.object_detection.core import losses
+from app.object_detection.core import post_processing
+from app.object_detection.core import region_similarity_calculator as sim_calc
+from app.object_detection.meta_architectures import ssd_meta_arch
+from app.object_detection.utils import test_utils
 
 slim = tf.contrib.slim
 

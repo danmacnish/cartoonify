@@ -22,7 +22,7 @@ https://arxiv.org/abs/1707.07012
 
 import tensorflow as tf
 
-from object_detection.meta_architectures import faster_rcnn_meta_arch
+from app.object_detection.meta_architectures import faster_rcnn_meta_arch
 from nets.nasnet import nasnet
 from nets.nasnet import nasnet_utils
 

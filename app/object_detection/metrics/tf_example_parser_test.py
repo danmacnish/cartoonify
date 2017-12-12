@@ -18,8 +18,8 @@ import numpy as np
 import numpy.testing as np_testing
 import tensorflow as tf
 
-from object_detection.core import standard_fields as fields
-from object_detection.metrics import tf_example_parser
+from app.object_detection.core import standard_fields as fields
+from app.object_detection.metrics import tf_example_parser
 
 
 class TfExampleDecoderTest(tf.test.TestCase):

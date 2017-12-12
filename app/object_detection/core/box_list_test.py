@@ -17,7 +17,7 @@
 
 import tensorflow as tf
 
-from object_detection.core import box_list
+from app.object_detection.core import box_list
 
 
 class BoxListTest(tf.test.TestCase):

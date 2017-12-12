@@ -503,6 +503,7 @@ def add_cdf_image_summary(values, name):
     values: a 1-D float32 tensor containing the values.
     name: name for the image summary.
   """
+
   def cdf_plot(values):
     """Numpy function to plot CDF."""
     normalized_values = values / np.sum(values)

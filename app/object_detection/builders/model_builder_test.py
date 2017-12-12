@@ -18,18 +18,18 @@
 import tensorflow as tf
 
 from google.protobuf import text_format
-from object_detection.builders import model_builder
-from object_detection.meta_architectures import faster_rcnn_meta_arch
-from object_detection.meta_architectures import rfcn_meta_arch
-from object_detection.meta_architectures import ssd_meta_arch
-from object_detection.models import faster_rcnn_inception_resnet_v2_feature_extractor as frcnn_inc_res
-from object_detection.models import faster_rcnn_inception_v2_feature_extractor as frcnn_inc_v2
-from object_detection.models import faster_rcnn_nas_feature_extractor as frcnn_nas
-from object_detection.models import faster_rcnn_resnet_v1_feature_extractor as frcnn_resnet_v1
-from object_detection.models.ssd_inception_v2_feature_extractor import SSDInceptionV2FeatureExtractor
-from object_detection.models.ssd_inception_v3_feature_extractor import SSDInceptionV3FeatureExtractor
-from object_detection.models.ssd_mobilenet_v1_feature_extractor import SSDMobileNetV1FeatureExtractor
-from object_detection.protos import model_pb2
+from app.object_detection.builders import model_builder
+from app.object_detection.meta_architectures import faster_rcnn_meta_arch
+from app.object_detection.meta_architectures import rfcn_meta_arch
+from app.object_detection.meta_architectures import ssd_meta_arch
+from app.object_detection.models import faster_rcnn_inception_resnet_v2_feature_extractor as frcnn_inc_res
+from app.object_detection.models import faster_rcnn_inception_v2_feature_extractor as frcnn_inc_v2
+from app.object_detection.models import faster_rcnn_nas_feature_extractor as frcnn_nas
+from app.object_detection.models import faster_rcnn_resnet_v1_feature_extractor as frcnn_resnet_v1
+from app.object_detection.models.ssd_inception_v2_feature_extractor import SSDInceptionV2FeatureExtractor
+from app.object_detection.models.ssd_inception_v3_feature_extractor import SSDInceptionV3FeatureExtractor
+from app.object_detection.models.ssd_mobilenet_v1_feature_extractor import SSDMobileNetV1FeatureExtractor
+from app.object_detection.protos import model_pb2
 
 FEATURE_EXTRACTOR_MAPS = {
     'faster_rcnn_resnet50':

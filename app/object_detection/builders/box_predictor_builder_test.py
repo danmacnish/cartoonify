@@ -18,10 +18,10 @@ import mock
 import tensorflow as tf
 
 from google.protobuf import text_format
-from object_detection.builders import box_predictor_builder
-from object_detection.builders import hyperparams_builder
-from object_detection.protos import box_predictor_pb2
-from object_detection.protos import hyperparams_pb2
+from app.object_detection.builders import box_predictor_builder
+from app.object_detection.builders import hyperparams_builder
+from app.object_detection.protos import box_predictor_pb2
+from app.object_detection.protos import hyperparams_pb2
 
 
 class ConvolutionalBoxPredictorBuilderTest(tf.test.TestCase):

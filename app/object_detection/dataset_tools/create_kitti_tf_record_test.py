@@ -21,7 +21,7 @@ import numpy as np
 import PIL.Image
 import tensorflow as tf
 
-from object_detection.dataset_tools import create_kitti_tf_record
+from app.object_detection.dataset_tools import create_kitti_tf_record
 
 
 class DictToTFExampleTest(tf.test.TestCase):

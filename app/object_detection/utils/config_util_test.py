@@ -21,12 +21,12 @@ import tensorflow.google as tf
 
 from google.protobuf import text_format
 
-from object_detection.protos import eval_pb2
-from object_detection.protos import input_reader_pb2
-from object_detection.protos import model_pb2
-from object_detection.protos import pipeline_pb2
-from object_detection.protos import train_pb2
-from object_detection.utils import config_util
+from app.object_detection.protos import eval_pb2
+from app.object_detection.protos import input_reader_pb2
+from app.object_detection.protos import model_pb2
+from app.object_detection.protos import pipeline_pb2
+from app.object_detection.protos import train_pb2
+from app.object_detection.utils import config_util
 
 
 def _write_config(config, config_path):

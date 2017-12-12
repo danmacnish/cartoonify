@@ -28,9 +28,9 @@ few box predictor architectures are shared across many models.
 """
 from abc import abstractmethod
 import tensorflow as tf
-from object_detection.utils import ops
-from object_detection.utils import shape_utils
-from object_detection.utils import static_shape
+from app.object_detection.utils import ops
+from app.object_detection.utils import shape_utils
+from app.object_detection.utils import static_shape
 
 slim = tf.contrib.slim
 

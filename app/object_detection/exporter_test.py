@@ -18,10 +18,10 @@ import os
 import numpy as np
 import six
 import tensorflow as tf
-from object_detection import exporter
-from object_detection.builders import model_builder
-from object_detection.core import model
-from object_detection.protos import pipeline_pb2
+from app.object_detection import exporter
+from app.object_detection.builders import model_builder
+from app.object_detection.core import model
+from app.object_detection.protos import pipeline_pb2
 
 if six.PY2:
   import mock  # pylint: disable=g-import-not-at-top

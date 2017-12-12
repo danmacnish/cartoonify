@@ -16,9 +16,9 @@
 """SSDFeatureExtractor for InceptionV2 features."""
 import tensorflow as tf
 
-from object_detection.meta_architectures import ssd_meta_arch
-from object_detection.models import feature_map_generators
-from object_detection.utils import ops
+from app.object_detection.meta_architectures import ssd_meta_arch
+from app.object_detection.models import feature_map_generators
+from app.object_detection.utils import ops
 from nets import inception_v2
 
 slim = tf.contrib.slim

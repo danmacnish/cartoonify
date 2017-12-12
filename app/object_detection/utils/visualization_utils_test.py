@@ -26,7 +26,7 @@ import numpy as np
 import PIL.Image as Image
 import tensorflow as tf
 
-from object_detection.utils import visualization_utils
+from app.object_detection.utils import visualization_utils
 
 _TESTDATA_PATH = 'object_detection/test_images'
 

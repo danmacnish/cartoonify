@@ -18,8 +18,8 @@
 This box coder use the following coding schema to encode boxes:
 rel_code = (box_corner - anchor_corner_mean) / anchor_corner_stddev.
 """
-from object_detection.core import box_coder
-from object_detection.core import box_list
+from app.object_detection.core import box_coder
+from app.object_detection.core import box_list
 
 
 class MeanStddevBoxCoder(box_coder.BoxCoder):

@@ -18,7 +18,7 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.models import faster_rcnn_resnet_v1_feature_extractor as faster_rcnn_resnet_v1
+from app.object_detection.models import faster_rcnn_resnet_v1_feature_extractor as faster_rcnn_resnet_v1
 
 
 class FasterRcnnResnetV1FeatureExtractorTest(tf.test.TestCase):

@@ -13,7 +13,7 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from object_detection.protos import hyperparams_pb2 as object__detection_dot_protos_dot_hyperparams__pb2
+from app.object_detection.protos import hyperparams_pb2 as object__detection_dot_protos_dot_hyperparams__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(

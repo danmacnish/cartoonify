@@ -33,10 +33,10 @@ import collections
 import logging
 import numpy as np
 
-from object_detection.core import standard_fields
-from object_detection.utils import label_map_util
-from object_detection.utils import metrics
-from object_detection.utils import per_image_evaluation
+from app.object_detection.core import standard_fields
+from app.object_detection.utils import label_map_util
+from app.object_detection.utils import metrics
+from app.object_detection.utils import per_image_evaluation
 
 
 class DetectionEvaluator(object):

@@ -17,7 +17,7 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.core import keypoint_ops
+from app.object_detection.core import keypoint_ops
 
 
 class KeypointOpsTest(tf.test.TestCase):

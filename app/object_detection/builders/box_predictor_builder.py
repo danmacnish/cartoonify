@@ -15,8 +15,8 @@
 
 """Function to build box predictor from configuration."""
 
-from object_detection.core import box_predictor
-from object_detection.protos import box_predictor_pb2
+from app.object_detection.core import box_predictor
+from app.object_detection.protos import box_predictor_pb2
 
 
 def build(argscope_fn, box_predictor_config, is_training, num_classes):

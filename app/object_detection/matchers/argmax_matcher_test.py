@@ -18,7 +18,7 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.matchers import argmax_matcher
+from app.object_detection.matchers import argmax_matcher
 
 
 class ArgMaxMatcherTest(tf.test.TestCase):

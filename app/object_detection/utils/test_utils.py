@@ -17,12 +17,12 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.core import anchor_generator
-from object_detection.core import box_coder
-from object_detection.core import box_list
-from object_detection.core import box_predictor
-from object_detection.core import matcher
-from object_detection.utils import shape_utils
+from app.object_detection.core import anchor_generator
+from app.object_detection.core import box_coder
+from app.object_detection.core import box_list
+from app.object_detection.core import box_predictor
+from app.object_detection.core import matcher
+from app.object_detection.utils import shape_utils
 
 
 class MockBoxCoder(box_coder.BoxCoder):

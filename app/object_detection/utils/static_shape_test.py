@@ -17,7 +17,7 @@
 
 import tensorflow as tf
 
-from object_detection.utils import static_shape
+from app.object_detection.utils import static_shape
 
 
 class StaticShapeTest(tf.test.TestCase):

@@ -17,8 +17,8 @@
 
 import tensorflow as tf
 
-from object_detection.core import preprocessor
-from object_detection.protos import preprocessor_pb2
+from app.object_detection.core import preprocessor
+from app.object_detection.protos import preprocessor_pb2
 
 
 def _get_step_config_from_proto(preprocessor_step_config, step_name):

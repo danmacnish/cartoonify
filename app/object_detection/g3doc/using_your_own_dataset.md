@@ -94,7 +94,7 @@ A typical conversion script will look like the following:
 
 import tensorflow as tf
 
-from object_detection.utils import dataset_util
+from app.object_detection.utils import dataset_util
 
 
 flags = tf.app.flags

@@ -18,7 +18,7 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import np_box_ops
+from app.object_detection.utils import np_box_ops
 
 
 class BoxOpsTests(tf.test.TestCase):

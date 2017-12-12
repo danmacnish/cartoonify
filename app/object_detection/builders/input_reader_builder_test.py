@@ -23,9 +23,9 @@ from google.protobuf import text_format
 
 from tensorflow.core.example import example_pb2
 from tensorflow.core.example import feature_pb2
-from object_detection.builders import input_reader_builder
-from object_detection.core import standard_fields as fields
-from object_detection.protos import input_reader_pb2
+from app.object_detection.builders import input_reader_builder
+from app.object_detection.core import standard_fields as fields
+from app.object_detection.protos import input_reader_pb2
 
 
 class InputReaderBuilderTest(tf.test.TestCase):

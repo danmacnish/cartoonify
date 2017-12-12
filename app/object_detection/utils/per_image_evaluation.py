@@ -20,8 +20,8 @@ detection is supported by default.
 """
 import numpy as np
 
-from object_detection.utils import np_box_list
-from object_detection.utils import np_box_list_ops
+from app.object_detection.utils import np_box_list
+from app.object_detection.utils import np_box_list_ops
 
 
 class PerImageEvaluation(object):

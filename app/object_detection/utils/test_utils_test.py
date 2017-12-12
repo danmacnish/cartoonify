@@ -18,7 +18,7 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import test_utils
+from app.object_detection.utils import test_utils
 
 
 class TestUtilsTest(tf.test.TestCase):

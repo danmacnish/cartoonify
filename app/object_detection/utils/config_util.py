@@ -18,11 +18,11 @@ import tensorflow as tf
 
 from google.protobuf import text_format
 
-from object_detection.protos import eval_pb2
-from object_detection.protos import input_reader_pb2
-from object_detection.protos import model_pb2
-from object_detection.protos import pipeline_pb2
-from object_detection.protos import train_pb2
+from app.object_detection.protos import eval_pb2
+from app.object_detection.protos import input_reader_pb2
+from app.object_detection.protos import model_pb2
+from app.object_detection.protos import pipeline_pb2
+from app.object_detection.protos import train_pb2
 
 
 def get_configs_from_pipeline_file(pipeline_config_path):

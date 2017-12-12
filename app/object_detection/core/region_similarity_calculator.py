@@ -23,7 +23,7 @@ from abc import abstractmethod
 
 import tensorflow as tf
 
-from object_detection.core import box_list_ops
+from app.object_detection.core import box_list_ops
 
 
 class RegionSimilarityCalculator(object):

@@ -21,9 +21,9 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 
-from object_detection.core import standard_fields
-from object_detection.inference import detection_inference
-from object_detection.utils import dataset_util
+from app.object_detection.core import standard_fields
+from app.object_detection.inference import detection_inference
+from app.object_detection.utils import dataset_util
 
 
 def get_mock_tfrecord_path():

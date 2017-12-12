@@ -20,13 +20,13 @@ import time
 import numpy as np
 import tensorflow as tf
 
-from object_detection.core import box_list
-from object_detection.core import box_list_ops
-from object_detection.core import keypoint_ops
-from object_detection.core import standard_fields as fields
-from object_detection.utils import label_map_util
-from object_detection.utils import ops
-from object_detection.utils import visualization_utils as vis_utils
+from app.object_detection.core import box_list
+from app.object_detection.core import box_list_ops
+from app.object_detection.core import keypoint_ops
+from app.object_detection.core import standard_fields as fields
+from app.object_detection.utils import label_map_util
+from app.object_detection.utils import ops
+from app.object_detection.utils import visualization_utils as vis_utils
 
 slim = tf.contrib.slim
 

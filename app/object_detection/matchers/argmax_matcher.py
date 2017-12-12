@@ -29,7 +29,7 @@ factory function for popular implementations.
 
 import tensorflow as tf
 
-from object_detection.core import matcher
+from app.object_detection.core import matcher
 
 
 class ArgMaxMatcher(matcher.Matcher):

@@ -30,9 +30,9 @@ from abc import abstractmethod
 
 import tensorflow as tf
 
-from object_detection.core import box_list
-from object_detection.core import box_list_ops
-from object_detection.utils import ops
+from app.object_detection.core import box_list
+from app.object_detection.core import box_list_ops
+from app.object_detection.utils import ops
 
 slim = tf.contrib.slim
 

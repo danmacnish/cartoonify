@@ -17,7 +17,7 @@
 
 import tensorflow as tf
 
-from object_detection.models import feature_map_generators
+from app.object_detection.models import feature_map_generators
 
 INCEPTION_V2_LAYOUT = {
     'from_layer': ['Mixed_3c', 'Mixed_4c', 'Mixed_5c', '', '', ''],

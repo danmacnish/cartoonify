@@ -47,11 +47,11 @@ import functools
 import os
 import tensorflow as tf
 
-from object_detection import evaluator
-from object_detection.builders import input_reader_builder
-from object_detection.builders import model_builder
-from object_detection.utils import config_util
-from object_detection.utils import label_map_util
+from app.object_detection import evaluator
+from app.object_detection.builders import input_reader_builder
+from app.object_detection.builders import model_builder
+from app.object_detection.utils import config_util
+from app.object_detection.utils import label_map_util
 
 
 tf.logging.set_verbosity(tf.logging.INFO)

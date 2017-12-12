@@ -17,9 +17,9 @@
 
 import tensorflow as tf
 
-from object_detection.models import feature_map_generators
-from object_detection.models import ssd_mobilenet_v1_feature_extractor
-from object_detection.utils import ops
+from app.object_detection.models import feature_map_generators
+from app.object_detection.models import ssd_mobilenet_v1_feature_extractor
+from app.object_detection.utils import ops
 from nets import mobilenet_v1
 
 slim = tf.contrib.slim

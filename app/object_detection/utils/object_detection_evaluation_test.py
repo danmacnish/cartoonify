@@ -18,8 +18,8 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.core import standard_fields
-from object_detection.utils import object_detection_evaluation
+from app.object_detection.core import standard_fields
+from app.object_detection.utils import object_detection_evaluation
 
 
 class OpenImagesV2EvaluationTest(tf.test.TestCase):

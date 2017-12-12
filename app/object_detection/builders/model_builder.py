@@ -14,28 +14,28 @@
 # ==============================================================================
 
 """A function to build a DetectionModel from configuration."""
-from object_detection.builders import anchor_generator_builder
-from object_detection.builders import box_coder_builder
-from object_detection.builders import box_predictor_builder
-from object_detection.builders import hyperparams_builder
-from object_detection.builders import image_resizer_builder
-from object_detection.builders import losses_builder
-from object_detection.builders import matcher_builder
-from object_detection.builders import post_processing_builder
-from object_detection.builders import region_similarity_calculator_builder as sim_calc
-from object_detection.core import box_predictor
-from object_detection.meta_architectures import faster_rcnn_meta_arch
-from object_detection.meta_architectures import rfcn_meta_arch
-from object_detection.meta_architectures import ssd_meta_arch
-from object_detection.models import faster_rcnn_inception_resnet_v2_feature_extractor as frcnn_inc_res
-from object_detection.models import faster_rcnn_inception_v2_feature_extractor as frcnn_inc_v2
-from object_detection.models import faster_rcnn_nas_feature_extractor as frcnn_nas
-from object_detection.models import faster_rcnn_resnet_v1_feature_extractor as frcnn_resnet_v1
-from object_detection.models.embedded_ssd_mobilenet_v1_feature_extractor import EmbeddedSSDMobileNetV1FeatureExtractor
-from object_detection.models.ssd_inception_v2_feature_extractor import SSDInceptionV2FeatureExtractor
-from object_detection.models.ssd_inception_v3_feature_extractor import SSDInceptionV3FeatureExtractor
-from object_detection.models.ssd_mobilenet_v1_feature_extractor import SSDMobileNetV1FeatureExtractor
-from object_detection.protos import model_pb2
+from app.object_detection.builders import anchor_generator_builder
+from app.object_detection.builders import box_coder_builder
+from app.object_detection.builders import box_predictor_builder
+from app.object_detection.builders import hyperparams_builder
+from app.object_detection.builders import image_resizer_builder
+from app.object_detection.builders import losses_builder
+from app.object_detection.builders import matcher_builder
+from app.object_detection.builders import post_processing_builder
+from app.object_detection.builders import region_similarity_calculator_builder as sim_calc
+from app.object_detection.core import box_predictor
+from app.object_detection.meta_architectures import faster_rcnn_meta_arch
+from app.object_detection.meta_architectures import rfcn_meta_arch
+from app.object_detection.meta_architectures import ssd_meta_arch
+from app.object_detection.models import faster_rcnn_inception_resnet_v2_feature_extractor as frcnn_inc_res
+from app.object_detection.models import faster_rcnn_inception_v2_feature_extractor as frcnn_inc_v2
+from app.object_detection.models import faster_rcnn_nas_feature_extractor as frcnn_nas
+from app.object_detection.models import faster_rcnn_resnet_v1_feature_extractor as frcnn_resnet_v1
+from app.object_detection.models.embedded_ssd_mobilenet_v1_feature_extractor import EmbeddedSSDMobileNetV1FeatureExtractor
+from app.object_detection.models.ssd_inception_v2_feature_extractor import SSDInceptionV2FeatureExtractor
+from app.object_detection.models.ssd_inception_v3_feature_extractor import SSDInceptionV3FeatureExtractor
+from app.object_detection.models.ssd_mobilenet_v1_feature_extractor import SSDMobileNetV1FeatureExtractor
+from app.object_detection.protos import model_pb2
 
 # A map of names to SSD feature extractors.
 SSD_FEATURE_EXTRACTOR_CLASS_MAP = {

@@ -17,9 +17,9 @@
 
 import tensorflow as tf
 
-from object_detection.box_coders import keypoint_box_coder
-from object_detection.core import box_list
-from object_detection.core import standard_fields as fields
+from app.object_detection.box_coders import keypoint_box_coder
+from app.object_detection.core import box_list
+from app.object_detection.core import standard_fields as fields
 
 
 class KeypointBoxCoderTest(tf.test.TestCase):

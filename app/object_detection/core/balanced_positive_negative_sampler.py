@@ -28,7 +28,7 @@ the minibatch_sampler base class.
 
 import tensorflow as tf
 
-from object_detection.core import minibatch_sampler
+from app.object_detection.core import minibatch_sampler
 
 
 class BalancedPositiveNegativeSampler(minibatch_sampler.MinibatchSampler):

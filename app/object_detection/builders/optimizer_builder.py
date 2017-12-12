@@ -16,7 +16,7 @@
 """Functions to build DetectionModel training optimizers."""
 
 import tensorflow as tf
-from object_detection.utils import learning_schedules
+from app.object_detection.utils import learning_schedules
 
 
 def build(optimizer_config, global_summaries):

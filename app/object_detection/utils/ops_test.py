@@ -17,8 +17,8 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.core import standard_fields as fields
-from object_detection.utils import ops
+from app.object_detection.core import standard_fields as fields
+from app.object_detection.utils import ops
 
 
 class NormalizedToImageCoordinatesTest(tf.test.TestCase):

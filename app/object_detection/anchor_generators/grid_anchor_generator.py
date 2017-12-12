@@ -22,9 +22,9 @@ Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.
 
 import tensorflow as tf
 
-from object_detection.core import anchor_generator
-from object_detection.core import box_list
-from object_detection.utils import ops
+from app.object_detection.core import anchor_generator
+from app.object_detection.core import box_list
+from app.object_detection.utils import ops
 
 
 class GridAnchorGenerator(anchor_generator.AnchorGenerator):

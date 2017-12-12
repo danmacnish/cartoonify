@@ -18,12 +18,12 @@
 import tensorflow as tf
 
 from google.protobuf import text_format
-from object_detection.box_coders import faster_rcnn_box_coder
-from object_detection.box_coders import keypoint_box_coder
-from object_detection.box_coders import mean_stddev_box_coder
-from object_detection.box_coders import square_box_coder
-from object_detection.builders import box_coder_builder
-from object_detection.protos import box_coder_pb2
+from app.object_detection.box_coders import faster_rcnn_box_coder
+from app.object_detection.box_coders import keypoint_box_coder
+from app.object_detection.box_coders import mean_stddev_box_coder
+from app.object_detection.box_coders import square_box_coder
+from app.object_detection.builders import box_coder_builder
+from app.object_detection.protos import box_coder_pb2
 
 
 class BoxCoderBuilderTest(tf.test.TestCase):

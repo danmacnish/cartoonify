@@ -17,12 +17,12 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.box_coders import mean_stddev_box_coder
-from object_detection.core import box_list
-from object_detection.core import region_similarity_calculator
-from object_detection.core import target_assigner as targetassigner
-from object_detection.matchers import argmax_matcher
-from object_detection.matchers import bipartite_matcher
+from app.object_detection.box_coders import mean_stddev_box_coder
+from app.object_detection.core import box_list
+from app.object_detection.core import region_similarity_calculator
+from app.object_detection.core import target_assigner as targetassigner
+from app.object_detection.matchers import argmax_matcher
+from app.object_detection.matchers import bipartite_matcher
 
 
 class TargetAssignerTest(tf.test.TestCase):
