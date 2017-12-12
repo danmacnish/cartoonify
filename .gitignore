@@ -1,0 +1,4 @@
+.ipynb_checkpoints
+downloads/drawing_dataset/*.bin
+downloads/detection_models
+.idea
