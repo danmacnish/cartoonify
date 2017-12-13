@@ -27,4 +27,8 @@ setup(
     install_requires=[
         "numpy",
     ],
+    entry_points='''
+        [console_scripts]
+        cartoonify=run:run
+    ''',
 )

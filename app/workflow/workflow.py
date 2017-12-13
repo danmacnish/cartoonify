@@ -4,6 +4,7 @@ from app.sketch import SketchGizeh
 import png
 import numpy as np
 from pathlib import Path
+import importlib
 
 
 class Workflow():
@@ -20,25 +21,33 @@ class Workflow():
         self._sketcher.setup()
         self._image_processor.setup()
 
-    def run(self, path=None):
+    def run(self, path, camera_enabled, image_path):
         """processes an image. If no path supplied, then capture from camera
 
         :param path: path to an image
         :return:
         """
-        if path:
-            img = self._image_processor.load_image_into_numpy_array(path)
-            boxes, scores, classes, num = self._image_processor.detect(img)
-            annotated_img = self._image_processor.annotate_image(img, boxes, classes, scores)
-            self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
-                                   np.squeeze(classes).astype(np.int32),
-                                   np.squeeze(scores),
-                                   self._image_processor.labels,
-                                   self._dataset)
-            self._save_3d_numpy_array_as_png(annotated_img, Path(path).with_name('annotated.png'))
-            self._save_3d_numpy_array_as_png(self._sketcher.get_npimage(), Path(path).with_name('cartoon.png'))
-        else:
-            print('camera capture not implemented yet')
+        try:
+            if not camera_enabled:
+                if image_path is None:
+                    raise ValueError('you must supply a path to the --image flag if --camera is not emabled')
+                img = self._image_processor.load_image_into_numpy_array(image_path)
+                boxes, scores, classes, num = self._image_processor.detect(img)
+                annotated_img = self._image_processor.annotate_image(img, boxes, classes, scores)
+                self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
+                                       np.squeeze(classes).astype(np.int32),
+                                       np.squeeze(scores),
+                                       self._image_processor.labels,
+                                       self._dataset)
+                self._save_3d_numpy_array_as_png(annotated_img, Path(image_path).with_name('annotated.png'))
+                self._save_3d_numpy_array_as_png(self._sketcher.get_npimage(), Path(image_path).with_name('cartoon.png'))
+            else:
+                picamera = importlib.import_module('picamera')
+                cam = picamera.PiCamera()
+                cam.capture(str(Path(path) / 'image.jpg'))
+        except ImportError as e:
+            print('picamera module missing, please install using:\nsudo apt-get update \n'
+                  'sudo apt-get install python-picamera')
 
     def _save_3d_numpy_array_as_png(self, img, path):
         """saves a NxNx3 8 bit numpy array as a png image

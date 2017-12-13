@@ -14,11 +14,13 @@ sketch = SketchGizeh()
 
 
 @click.command()
-@click.option('--path', default=None, help='filepath of the image to process.')
-def run(path):
+@click.option('--path', default=None, type=click.Path(), help='directory to save results to')
+@click.option('--camera', is_flag=True, help='use this flag to enable captures from the raspberry pi camera')
+@click.option('--image', default=None, type=click.Path(), help='filepath of the image to process (use this if not enabling camera)')
+def run(path, camera, image):
     app = Workflow(dataset, imageprocessor, sketch)
     app.setup()
-    app.run(path)
+    app.run(path, camera, image)
 
 if __name__=='__main__':
     run()
