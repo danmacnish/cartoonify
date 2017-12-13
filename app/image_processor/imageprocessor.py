@@ -6,6 +6,7 @@ import tensorflow as tf
 from PIL import Image
 from app.object_detection import label_map_util
 from app.object_detection import visualization_utils as vis_util
+import logging
 
 
 class ImageProcessor():
@@ -26,8 +27,10 @@ class ImageProcessor():
         self._classes = None
         self._scores = None
         self._num = None
+        self._logger = None
 
     def setup(self):
+        self._logger = logging.getLogger(self.__class__.__name__)
         MODEL_FILE = self._model_name + '.tar.gz'
         DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
         # self.download_model(DOWNLOAD_BASE, MODEL_FILE)
@@ -48,6 +51,7 @@ class ImageProcessor():
     def load_model(self, path):
         """load saved model from protobuf file
         """
+        self._logger.info('loading tensorflow model')
         self._detection_graph = tf.Graph()
         with self._detection_graph.as_default():
             od_graph_def = tf.GraphDef()

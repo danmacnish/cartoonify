@@ -5,6 +5,7 @@ import png
 import numpy as np
 from pathlib import Path
 import importlib
+import logging
 
 
 class Workflow():
@@ -15,18 +16,24 @@ class Workflow():
         self._dataset = dataset
         self._image_processor = imageprocessor
         self._sketcher = sketch
+        self._logger = logging.getLogger(self.__class__.__name__)
 
     def setup(self):
+        print('loading cartoon dataset...')
         self._dataset.setup()
         self._sketcher.setup()
+        print('loading tensorflow model...')
         self._image_processor.setup()
 
     def run(self, path, camera_enabled, image_path):
         """processes an image. If no path supplied, then capture from camera
 
-        :param path: path to an image
+        :param path: directory to save results to
+        :param bool camera_enabled: whether to use raspi camera or not
+        :param image_path: image to process, if camera is disabled
         :return:
         """
+        print('processing image...')
         try:
             if not camera_enabled:
                 if image_path is None:
@@ -48,6 +55,10 @@ class Workflow():
         except ImportError as e:
             print('picamera module missing, please install using:\nsudo apt-get update \n'
                   'sudo apt-get install python-picamera')
+            self._logger.exception(e)
+        except ValueError as e:
+            print(repr(e))
+            self._logger.exception(e)
 
     def _save_3d_numpy_array_as_png(self, img, path):
         """saves a NxNx3 8 bit numpy array as a png image

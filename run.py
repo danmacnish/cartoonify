@@ -5,6 +5,9 @@ from app.image_processor import ImageProcessor
 from app.sketch import SketchGizeh
 from pathlib import Path
 from os.path import join
+import logging
+import datetime
+
 
 dataset = DrawingDataset('./downloads/drawing_dataset', './app/label_mapping.jsonl')
 imageprocessor = ImageProcessor(join('.', 'downloads', 'detection_models', 'ssd_mobilenet_v1_coco_2017_11_17',
@@ -18,6 +21,12 @@ sketch = SketchGizeh()
 @click.option('--camera', is_flag=True, help='use this flag to enable captures from the raspberry pi camera')
 @click.option('--image', default=None, type=click.Path(), help='filepath of the image to process (use this if not enabling camera)')
 def run(path, camera, image):
+    logging_filename = datetime.datetime.now().strftime('%Y%m%d-%H%M.log')
+    if image is not None:
+        logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, filename=str(Path(image).parent / logging_filename))
+    elif path is not None and image is None:
+        logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, filename=str(Path(path) / logging_filename))
+
     app = Workflow(dataset, imageprocessor, sketch)
     app.setup()
     app.run(path, camera, image)

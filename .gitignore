@@ -2,3 +2,4 @@
 downloads/drawing_dataset/*.bin
 downloads/detection_models
 .idea
+sample_images
