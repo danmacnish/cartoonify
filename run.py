@@ -17,6 +17,7 @@ sketch = SketchGizeh()
 @click.option('--path', default=None, help='filepath of the image to process.')
 def run(path):
     app = Workflow(dataset, imageprocessor, sketch)
+    app.setup()
     app.run(path)
 
 if __name__=='__main__':
