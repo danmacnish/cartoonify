@@ -4,6 +4,7 @@ from struct import unpack
 from pathlib import Path
 import jsonlines
 import logging
+import click
 
 
 class DrawingDataset():
@@ -15,14 +16,21 @@ class DrawingDataset():
         self._path = Path(path_to_drawing_dataset)
         self._categories_filepath = self._path / 'categories.txt'
         self._category_mapping_filepath = path_to_label_mapping
+        self._quickdraw_dataset_url = 'https://storage.googleapis.com/quickdraw_dataset/full/binary/'
         self._categories = []
         self._category_mapping = dict()
         self._logger = logging.getLogger(self.__class__.__name__)
 
     def setup(self):
         self._categories = self.load_categories(self._path)
-        if self._categories is []:
-            print('no drawings available, ')
+        if not self._categories:
+            if click.confirm('no drawings available, would you like to download the dataset? '
+                             'download will take approx 5gb of space'):
+                self.download_recurse(self._quickdraw_dataset_url, self._path)
+                self._categories = self.load_categories(self._path)
+            else:
+                self._logger.error('no drawings available, and user declined to download dataset')
+                raise ValueError('no drawings available, please download dataset')
         try:
             with jsonlines.open(self._category_mapping_filepath, mode='r') as reader:
                 self._category_mapping = reader.read()
@@ -45,7 +53,7 @@ class DrawingDataset():
         """download all available files from url
         """
         path = Path(path)
-        with open(self._categories_filepath) as f:
+        with open(str(self._categories_filepath)) as f:
             categories = f.readlines()
         categories = [cat.strip() for cat in categories]
         for cat in categories:

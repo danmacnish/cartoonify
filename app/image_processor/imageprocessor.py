@@ -7,6 +7,8 @@ from PIL import Image
 from app.object_detection import label_map_util
 from app.object_detection import visualization_utils as vis_util
 import logging
+from pathlib import Path
+import click
 
 
 class ImageProcessor():
@@ -19,6 +21,7 @@ class ImageProcessor():
         self._path_to_model = path_to_model
         # strings used to add correct label for each box.
         self._path_to_labels = path_to_labels
+        self._download_url = 'http://download.tensorflow.org/models/object_detection/'
         self._num_classes = 90
         self._detection_graph = None
         self._labels = dict()
@@ -31,27 +34,31 @@ class ImageProcessor():
 
     def setup(self):
         self._logger = logging.getLogger(self.__class__.__name__)
-        MODEL_FILE = self._model_name + '.tar.gz'
-        DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
-        # self.download_model(DOWNLOAD_BASE, MODEL_FILE)
+        if not Path(self._path_to_model).exists():
+            if click.confirm('no object detection model available, would you like to download the model? '
+                             'download will take approx 100mb of space'):
+                self.download_model(self._download_url, self._model_name + '.tar.gz')
         self.load_model(self._path_to_model)
         self._labels = self.load_labels(self._path_to_labels)
 
     def download_model(self, url, filename):
         """download a model file from the url and unzip it
         """
+        self._logger.info('downloading model: {}'.format(filename))
         opener = urllib.request.URLopener()
         opener.retrieve(url + filename, filename)
         tar_file = tarfile.open(filename)
         for file in tar_file.getmembers():
             file_name = os.path.basename(file.name)
             if 'frozen_inference_graph.pb' in file_name:
-                tar_file.extract(file, os.getcwd())
+                tar_file.extract(file, path=str(Path(self._path_to_model).parents[1]))
 
     def load_model(self, path):
         """load saved model from protobuf file
         """
         self._logger.info('loading tensorflow model')
+        if not Path(path).exists():
+            raise FileNotFoundError('model file missing: {}'.format(str(path)))
         self._detection_graph = tf.Graph()
         with self._detection_graph.as_default():
             od_graph_def = tf.GraphDef()
