@@ -3,6 +3,7 @@ import struct
 from struct import unpack
 from pathlib import Path
 import jsonlines
+import logging
 
 
 class DrawingDataset():
@@ -16,16 +17,19 @@ class DrawingDataset():
         self._category_mapping_filepath = path_to_label_mapping
         self._categories = []
         self._category_mapping = dict()
+        self._logger = logging.getLogger(self.__class__.__name__)
 
     def setup(self):
         self._categories = self.load_categories(self._path)
         if self._categories is []:
-            print('no drawings available, please download quickdraw dataset')
+            print('no drawings available, ')
         try:
             with jsonlines.open(self._category_mapping_filepath, mode='r') as reader:
                 self._category_mapping = reader.read()
         except FileNotFoundError as e:
+            self._logger.exception(e)
             print('label_mapping.jsonl not found')
+            raise e
 
     def download(self, url, filename, path):
         """download file @ specified url and save it to path
@@ -102,7 +106,8 @@ class DrawingDataset():
                 drawing = next(itr)
             return drawing['image']
         except ValueError as e:
-            print(repr(e))
+            self.log.exception(e)
+            raise e
 
     @property
     def categories(self):
