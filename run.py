@@ -12,12 +12,12 @@ from remi import start
 import importlib
 import sys
 
+root = Path(__file__).parent
 
 # init objects
-dataset = DrawingDataset('./downloads/drawing_dataset', './app/label_mapping.jsonl')
-imageprocessor = ImageProcessor(join('.', 'downloads', 'detection_models', 'ssd_mobilenet_v1_coco_2017_11_17',
-                                          'frozen_inference_graph.pb'),
-                                join('.', 'app', 'object_detection', 'data', 'mscoco_label_map.pbtxt'))
+dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
+imageprocessor = ImageProcessor(str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
+                                str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
 sketch = SketchGizeh()
 
 # configure logging
