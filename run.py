@@ -42,10 +42,11 @@ def run(path, camera, gui):
               'sudo apt-get install python-picamera')
         logging.exception(e)
     app = Workflow(dataset, imageprocessor, sketch, cam)
-    app.setup()
+    #app.setup()
     if gui:
-        start(WebGui)
-        cam.close()
+        print('starting gui...')
+        start(WebGui, address='0.0.0.0', start_browser=True)
+        #cam.close()
     else:
         while True:
             path = Path(input("enter the filepath of the image to process:"))
