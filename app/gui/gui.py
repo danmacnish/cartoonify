@@ -1,19 +1,20 @@
 import remi.gui as gui
 from remi import start, App
 import sys
-from PIL import Image
+import PIL.Image
 import io
 import time
 from pathlib import Path
+from os import getcwd
 
 
-class PILImageViewverWidget(gui.Image):
-    def __init__(self, image_path='', **kwargs):
-        super().__init__(image_path, **kwargs)
+class PILImageViewerWidget(gui.Image):
+    def __init__(self, **kwargs):
+        super().__init__('/res/logo.png', **kwargs)
         self._buf = None
 
     def load(self, file_path_name):
-        pil_image = Image.open(file_path_name)
+        pil_image = PIL.Image.open(file_path_name)
         self._buf = io.BytesIO()
         pil_image.save(self._buf, format='png')
         self.refresh()
@@ -31,16 +32,15 @@ class PILImageViewverWidget(gui.Image):
 
 
 class WebGui(App):
-    def __init__(self, *args, **kwargs):
-        if not 'editing_mode' in kwargs.keys():
-            super().__init__(*args)
+    def __init__(self, *args):
+        super().__init__(*args)
 
     def idle(self):
         # idle function called every update cycle
         pass
 
     def main(self):
-        return self.construct_ui(self)
+        return self.construct_ui()
 
     def construct_ui(self):
         main_container = gui.VBox()
@@ -69,16 +69,10 @@ class WebGui(App):
         hbox_snap.style['align-items'] = "center"
         hbox_snap.style['top'] = "125px"
         hbox_snap.style['height'] = "150px"
-        button_snap = gui.Button('button_snap')
-        button_snap.style['order'] = "4354708536"
-        button_snap.style['-webkit-order'] = "4354708536"
-        button_snap.style['display'] = "block"
+        button_snap = gui.Button('snap')
         button_snap.style['margin'] = "0px"
         button_snap.style['overflow'] = "auto"
         button_snap.style['width'] = "200px"
-        button_snap.style['height'] = '100px'
-        button_snap.style['top'] = "-590px"
-        button_snap.style['position'] = "static"
         button_snap.style['height'] = "30px"
         hbox_snap.append(button_snap, 'button_snap')
         vbox_settings = gui.VBox()
@@ -118,26 +112,24 @@ class WebGui(App):
         checkbox_display_tagged.style['height'] = "30px"
         vbox_settings.append(checkbox_display_tagged, 'checkbox_display_tagged')
         hbox_snap.append(vbox_settings, 'vbox_settings')
-        button_close = gui.Button('button_close')
+        button_close = gui.Button('close')
         button_close.style['background-color'] = 'red'
         button_close.style['width'] = "200px"
-        button_close.style['height'] = '100px'
+        button_close.style['height'] = '30px'
         hbox_snap.append(button_close, 'button_close')
         main_container.append(hbox_snap, 'hbox_snap')
-        path = Path(__file__).parent / '..' / 'assets' / 'doubt.png'
-        image_original = PILImageViewverWidget(str(path), width=200, height=200)
+        path = '/res/logo.png'
+        image_original = gui.Image(path, width=200, height=200)
         main_container.append(image_original, 'image_original')
-        image_result = PILImageViewverWidget(str(path), width=200, height=200)
-        main_container.append(image_result, 'image_result')
-        image_tagged = PILImageViewverWidget(str(path), width=200, height=200)
-        main_container.append(image_tagged, 'image_tagged')
+        #image_result = PILImageViewerWidget(width=200, height=200)
+        #main_container.append(image_result, 'image_result')
+        #image_tagged = PILImageViewerWidget(width=200, height=200)
+        #main_container.append(image_tagged, 'image_tagged')
 
-        # set listeners
         button_close.set_on_click_listener(self.on_close_pressed)
         button_snap.set_on_click_listener(self.on_snap_pressed)
 
-        self.main_container = main_container
-        return self.main_container
+        return main_container
 
     def on_close_pressed(self, *_):
         self.close()  #closes the application
