@@ -118,13 +118,12 @@ class WebGui(App):
         button_close.style['height'] = '30px'
         hbox_snap.append(button_close, 'button_close')
         main_container.append(hbox_snap, 'hbox_snap')
-        path = '/res/logo.png'
-        image_original = PILImageViewerWidget(width=200, height=200)
-        main_container.append(image_original, 'image_original')
-        image_result = PILImageViewerWidget(width=200, height=200)
-        main_container.append(image_result, 'image_result')
-        image_tagged = PILImageViewerWidget(width=200, height=200)
-        main_container.append(image_tagged, 'image_tagged')
+        self.image_original = PILImageViewerWidget(width=200, height=200)
+        main_container.append(self.image_original, 'image_original')
+        self.image_result = PILImageViewerWidget(width=200, height=200)
+        main_container.append(self.image_result, 'image_result')
+        self.image_tagged = PILImageViewerWidget(width=200, height=200)
+        main_container.append(self.image_tagged, 'image_tagged')
 
         button_close.set_on_click_listener(self.on_close_pressed)
         button_snap.set_on_click_listener(self.on_snap_pressed)
