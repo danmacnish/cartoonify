@@ -78,4 +78,4 @@ class SketchGizeh():
         return self._surface.get_npimage()
 
     def save_png(self, path):
-        self._surface.write_to_png(path)
+        self._surface.write_to_png(str(path))

@@ -5,7 +5,10 @@ import PIL.Image
 import io
 import time
 from pathlib import Path
-from os import getcwd
+from app.workflow import Workflow
+from app.drawing_dataset import DrawingDataset
+from app.image_processor import ImageProcessor
+from app.sketch import SketchGizeh
 
 
 class PILImageViewerWidget(gui.Image):
@@ -40,6 +43,15 @@ class WebGui(App):
         pass
 
     def main(self):
+        root = Path(__file__).parent / '..' / '..'
+        dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
+        imageprocessor = ImageProcessor(
+            str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
+            str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
+        sketch = SketchGizeh()
+        cam = None
+        self.app = Workflow(dataset, imageprocessor, sketch, cam)
+        self.app.setup()
         return self.construct_ui()
 
     def construct_ui(self):
@@ -118,11 +130,13 @@ class WebGui(App):
         button_close.style['height'] = '30px'
         hbox_snap.append(button_close, 'button_close')
         main_container.append(hbox_snap, 'hbox_snap')
-        self.image_original = PILImageViewerWidget(width=200, height=200)
+        width = 200
+        height = 200
+        self.image_original = PILImageViewerWidget(width=width, height=height)
         main_container.append(self.image_original, 'image_original')
-        self.image_result = PILImageViewerWidget(width=200, height=200)
+        self.image_result = PILImageViewerWidget(width=width, height=height)
         main_container.append(self.image_result, 'image_result')
-        self.image_tagged = PILImageViewerWidget(width=200, height=200)
+        self.image_tagged = PILImageViewerWidget(width=width, height=height)
         main_container.append(self.image_tagged, 'image_tagged')
 
         button_close.set_on_click_listener(self.on_close_pressed)
@@ -134,4 +148,23 @@ class WebGui(App):
         self.close()  #closes the application
 
     def on_snap_pressed(self, *_):
-        pass
+        self.fileselectionDialog = gui.FileSelectionDialog('File Selection Dialog', 'Select an image file', False, '.')
+        self.fileselectionDialog.set_on_confirm_value_listener(
+            self.on_image_file_selected)
+        self.fileselectionDialog.set_on_cancel_dialog_listener(
+            self.on_dialog_cancel)
+        # here is shown the dialog as root widget
+        self.fileselectionDialog.show(self)
+
+    def on_image_file_selected(self, widget, file_list):
+        if len(file_list) < 1:
+            return
+        self.app.process(file_list[0])
+        annotated, cartoon = self.app.save_results()
+        self.image_original.load(file_list[0])
+        self.image_tagged.load(str(annotated))
+        self.image_result.load(str(cartoon))
+        self.set_root_widget(self.mainContainer)
+
+    def on_dialog_cancel(self, widget):
+        self.set_root_widget(self.mainContainer)

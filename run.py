@@ -41,16 +41,16 @@ def run(path, camera, gui):
         print('picamera module missing, please install using:\nsudo apt-get update \n'
               'sudo apt-get install python-picamera')
         logging.exception(e)
-    app = Workflow(dataset, imageprocessor, sketch, cam)
-    #app.setup()
     if gui:
         print('starting gui...')
         start(WebGui, address='0.0.0.0', start_browser=True)
-        #cam.close()
     else:
         while True:
+            app = Workflow(dataset, imageprocessor, sketch, cam)
+            app.setup()
             path = Path(input("enter the filepath of the image to process:"))
             app.process(str(path))
+            app.save_results()
             if not click.confirm('do you want to process another image?'):
                 break
 

@@ -1,6 +1,3 @@
-from app.drawing_dataset import DrawingDataset
-from app.image_processor import ImageProcessor
-from app.sketch import SketchGizeh
 import png
 import numpy as np
 from pathlib import Path
@@ -12,11 +9,14 @@ class Workflow():
     """
 
     def __init__(self, dataset, imageprocessor, sketch, camera):
+        self._image_path = Path('')
         self._dataset = dataset
         self._image_processor = imageprocessor
         self._sketcher = sketch
         self._cam = camera
         self._logger = logging.getLogger(self.__class__.__name__)
+        self._image = None
+        self._annotated_image = None
 
     def setup(self):
         print('loading cartoon dataset...')
@@ -44,18 +44,30 @@ class Workflow():
         try:
             if image_path is None:
                 raise ValueError('you must supply a path to the --image flag if --camera is not emabled')
+            self._image_path = Path(image_path)
             img = self._image_processor.load_image_into_numpy_array(image_path)
             boxes, scores, classes, num = self._image_processor.detect(img)
-            annotated_img = self._image_processor.annotate_image(img, boxes, classes, scores)
+            self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores)
             self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
                                    np.squeeze(classes).astype(np.int32),
                                    np.squeeze(scores),
                                    self._image_processor.labels,
                                    self._dataset)
-            self._save_3d_numpy_array_as_png(annotated_img, Path(image_path).with_name('annotated.png'))
         except ValueError as e:
             print(repr(e))
             self._logger.exception(e)
+
+    def save_results(self):
+        """save result images as png
+
+        :return tuple: (path to annotated image, path to cartoon image)
+        """
+        annotated_path = self._image_path.with_name('annotated.png')
+        cartoon_path = self._image_path.with_name('cartoon.png')
+        self._save_3d_numpy_array_as_png(self._annotated_image, annotated_path)
+        self._sketcher.save_png(cartoon_path)
+        return annotated_path, cartoon_path
+
 
     def _save_3d_numpy_array_as_png(self, img, path):
         """saves a NxNx3 8 bit numpy array as a png image
