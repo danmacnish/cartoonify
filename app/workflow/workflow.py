@@ -49,14 +49,15 @@ class Workflow():
             self._image_path = Path(image_path)
             img = self._image_processor.load_image_into_numpy_array(image_path)
             boxes, scores, classes, num = self._image_processor.detect(img)
-            self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores)
+            self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=0.3)
             self._sketcher = SketchGizeh()
             self._sketcher.setup()
             self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
                                    np.squeeze(classes).astype(np.int32),
                                    np.squeeze(scores),
                                    self._image_processor.labels,
-                                   self._dataset)
+                                   self._dataset,
+                                   threshold=0.3)
         except ValueError as e:
             print(repr(e))
             self._logger.exception(e)

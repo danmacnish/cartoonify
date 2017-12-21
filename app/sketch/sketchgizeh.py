@@ -55,11 +55,11 @@ class SketchGizeh():
             lines_list.append(line)
         return gz.Group(lines_list)
 
-    def draw_object_recognition_results(self, boxes, classes, scores, labels, dataset, min_score_thresh=0.5):
+    def draw_object_recognition_results(self, boxes, classes, scores, labels, dataset, threshold=0.5):
         """draw results of object recognition
         """
         for i in range(boxes.shape[0]):
-            if scores is None or scores[i] > min_score_thresh:
+            if scores is None or scores[i] > threshold:
                 box = tuple(boxes[i].tolist())
                 if classes[i] in labels.keys():
                     class_name = labels[classes[i]]['name']

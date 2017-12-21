@@ -105,7 +105,7 @@ class ImageProcessor():
                     feed_dict={image_tensor: image_np_expanded})
                 return self._boxes, self._scores, self._classes, self._num
 
-    def annotate_image(self, image, boxes, classes, scores):
+    def annotate_image(self, image, boxes, classes, scores, threshold=0.5):
         """draws boxes around the detected objects and labels them
 
         :return: annotated image
@@ -118,7 +118,8 @@ class ImageProcessor():
             np.squeeze(scores),
             self._labels,
             use_normalized_coordinates=True,
-            line_thickness=8)
+            line_thickness=8,
+            min_score_thresh=threshold)
         return annotated_image
 
     @property
