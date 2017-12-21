@@ -2,17 +2,18 @@ import png
 import numpy as np
 from pathlib import Path
 import logging
+from app.sketch import SketchGizeh
 
 
 class Workflow():
     """controls execution of app
     """
 
-    def __init__(self, dataset, imageprocessor, sketch, camera):
+    def __init__(self, dataset, imageprocessor, camera):
         self._image_path = Path('')
         self._dataset = dataset
         self._image_processor = imageprocessor
-        self._sketcher = sketch
+        self._sketcher = None
         self._cam = camera
         self._logger = logging.getLogger(self.__class__.__name__)
         self._image = None
@@ -21,6 +22,7 @@ class Workflow():
     def setup(self):
         print('loading cartoon dataset...')
         self._dataset.setup()
+        self._sketcher = SketchGizeh()
         self._sketcher.setup()
         print('loading tensorflow model...')
         self._image_processor.setup()
@@ -48,6 +50,8 @@ class Workflow():
             img = self._image_processor.load_image_into_numpy_array(image_path)
             boxes, scores, classes, num = self._image_processor.detect(img)
             self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores)
+            self._sketcher = SketchGizeh()
+            self._sketcher.setup()
             self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
                                    np.squeeze(classes).astype(np.int32),
                                    np.squeeze(scores),

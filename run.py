@@ -18,7 +18,6 @@ root = Path(__file__).parent
 dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
 imageprocessor = ImageProcessor(str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
                                 str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
-sketch = SketchGizeh()
 
 # configure logging
 logging_filename = datetime.datetime.now().strftime('%Y%m%d-%H%M.log')
@@ -46,7 +45,7 @@ def run(path, camera, gui):
         start(WebGui, address='0.0.0.0', start_browser=True)
     else:
         while True:
-            app = Workflow(dataset, imageprocessor, sketch, cam)
+            app = Workflow(dataset, imageprocessor, cam)
             app.setup()
             path = Path(input("enter the filepath of the image to process:"))
             app.process(str(path))

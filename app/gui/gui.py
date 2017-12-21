@@ -48,9 +48,8 @@ class WebGui(App):
         imageprocessor = ImageProcessor(
             str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
             str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
-        sketch = SketchGizeh()
         cam = None
-        self.app = Workflow(dataset, imageprocessor, sketch, cam)
+        self.app = Workflow(dataset, imageprocessor, cam)
         self.app.setup()
         return self.construct_ui()
 
