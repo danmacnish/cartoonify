@@ -76,10 +76,11 @@ class ImageProcessor():
         category_index = label_map_util.create_category_index(categories)
         return category_index
 
-    def load_image_into_numpy_array(self, path):
+    def load_image_into_numpy_array(self, path, scale=1.0):
         """load image into NxNx3 numpy array
         """
         image = Image.open(path)
+        image = image.resize(tuple(scale * dim for dim in image.size))
         (im_width, im_height) = image.size
         return np.array(image.getdata()).reshape((im_height, im_width, 3)).astype(np.uint8)
 
