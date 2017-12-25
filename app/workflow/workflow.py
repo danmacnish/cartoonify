@@ -22,10 +22,13 @@ class Workflow():
     def setup(self):
         print('loading cartoon dataset...')
         self._dataset.setup()
+        print('Done')
         self._sketcher = SketchGizeh()
         self._sketcher.setup()
         print('loading tensorflow model...')
         self._image_processor.setup()
+        print('Done')
+
 
     def capture(self, path):
         if self._cam is not None:

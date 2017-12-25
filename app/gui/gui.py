@@ -1,5 +1,5 @@
 import remi.gui as gui
-from remi import start, App
+from remi import App
 import sys
 import PIL.Image
 import io
@@ -8,7 +8,8 @@ from pathlib import Path
 from app.workflow import Workflow
 from app.drawing_dataset import DrawingDataset
 from app.image_processor import ImageProcessor
-from app.sketch import SketchGizeh
+import importlib
+import logging
 
 
 class PILImageViewerWidget(gui.Image):
@@ -35,21 +36,36 @@ class PILImageViewerWidget(gui.Image):
 
 
 class WebGui(App):
+    """
+    gui for the app
+    """
+
     def __init__(self, *args):
         super().__init__(*args)
+        self._cam = None
+        self._dataset = None
+        self._imageprocessor = None
+        self.app = None
 
     def idle(self):
         # idle function called every update cycle
         pass
 
     def main(self):
+        try:
+            picam = importlib.import_module('picamera')
+            self._cam = picam.PiCamera()
+        except ImportError as e:
+            print('picamera module missing, please install using:\nsudo apt-get update \n'
+                  'sudo apt-get install python-picamera')
+            logging.exception(e)
+            self._cam = None
         root = Path(__file__).parent / '..' / '..'
-        dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
-        imageprocessor = ImageProcessor(
+        self._dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
+        self._imageprocessor = ImageProcessor(
             str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
             str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
-        cam = None
-        self.app = Workflow(dataset, imageprocessor, cam)
+        self.app = Workflow(self._dataset, self._imageprocessor, self._cam)
         self.app.setup()
         return self.construct_ui()
 
@@ -86,6 +102,12 @@ class WebGui(App):
         button_snap.style['width'] = "200px"
         button_snap.style['height'] = "30px"
         hbox_snap.append(button_snap, 'button_snap')
+        button_open = gui.Button('open image from file')
+        button_open.style['margin'] = "0px"
+        button_open.style['overflow'] = "auto"
+        button_open.style['width'] = "200px"
+        button_open.style['height'] = "30px"
+        hbox_snap.append(button_open, 'button_open')
         vbox_settings = gui.VBox()
         vbox_settings.style['order'] = "4349486136"
         vbox_settings.style['display'] = "flex"
@@ -140,6 +162,7 @@ class WebGui(App):
 
         button_close.set_on_click_listener(self.on_close_pressed)
         button_snap.set_on_click_listener(self.on_snap_pressed)
+        button_open.set_on_click_listener(self.on_open_pressed)
 
         return main_container
 
@@ -147,15 +170,20 @@ class WebGui(App):
         self.close()  #closes the application
 
     def on_snap_pressed(self, *_):
+        path = Path.home() / 'images'
+        self.app.capture(str(path))
+        self.process_image(None, [path])
+
+    def on_open_pressed(self, *_):
         self.fileselectionDialog = gui.FileSelectionDialog('File Selection Dialog', 'Select an image file', False, '.')
         self.fileselectionDialog.set_on_confirm_value_listener(
-            self.on_image_file_selected)
+            self.process_image)
         self.fileselectionDialog.set_on_cancel_dialog_listener(
             self.on_dialog_cancel)
         # here is shown the dialog as root widget
         self.fileselectionDialog.show(self)
 
-    def on_image_file_selected(self, widget, file_list):
+    def process_image(self, widget, file_list):
         if len(file_list) < 1:
             return
         self.app.process(file_list[0])

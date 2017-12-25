@@ -29,25 +29,30 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, fil
 @click.option('--camera', is_flag=True, help='use this flag to enable captures from the raspberry pi camera')
 @click.option('--gui', is_flag=True, help='enables gui')
 def run(path, camera, gui):
-
-    try:
-        if camera:
-            picam = importlib.import_module('picamera')
-            cam = picam.PiCamera()
-        else:
-            cam = None
-    except ImportError as e:
-        print('picamera module missing, please install using:\nsudo apt-get update \n'
-              'sudo apt-get install python-picamera')
-        logging.exception(e)
     if gui:
         print('starting gui...')
         start(WebGui, address='0.0.0.0', start_browser=True)
     else:
-        while True:
+        try:
+            if camera:
+                picam = importlib.import_module('picamera')
+                cam = picam.PiCamera()
+            else:
+                cam = None
             app = Workflow(dataset, imageprocessor, cam)
             app.setup()
-            path = Path(input("enter the filepath of the image to process:"))
+        except ImportError as e:
+            print('picamera module missing, please install using:\nsudo apt-get update \n'
+                  'sudo apt-get install python-picamera')
+            logging.exception(e)
+        while True:
+            if camera:
+                while not click.confirm('would you like to capture an image?'):
+                    pass
+                path = Path.home() / 'images' / 'image.jpg'
+                app.capture(str(path))
+            else:
+                path = Path(input("enter the filepath of the image to process:"))
             app.process(str(path))
             app.save_results()
             if not click.confirm('do you want to process another image?'):
