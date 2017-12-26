@@ -1,6 +1,5 @@
 import remi.gui as gui
 from remi import App
-import sys
 import PIL.Image
 import io
 import time
@@ -10,6 +9,7 @@ from app.drawing_dataset import DrawingDataset
 from app.image_processor import ImageProcessor
 import importlib
 import logging
+import sys
 
 
 class PILImageViewerWidget(gui.Image):
@@ -42,10 +42,6 @@ class WebGui(App):
 
     def __init__(self, *args):
         super().__init__(*args)
-        self._cam = None
-        self._dataset = None
-        self._imageprocessor = None
-        self.app = None
 
     def idle(self):
         # idle function called every update cycle
@@ -55,33 +51,35 @@ class WebGui(App):
         try:
             picam = importlib.import_module('picamera')
             self._cam = picam.PiCamera()
-        except ImportError as e:
-            print('picamera module missing, please install using:\nsudo apt-get update \n'
-                  'sudo apt-get install python-picamera')
-            logging.exception(e)
+        except ImportError:
             self._cam = None
-        root = Path(__file__).parent / '..' / '..'
-        self._dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
-        self._imageprocessor = ImageProcessor(
-            str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
-            str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
-        self.app = Workflow(self._dataset, self._imageprocessor, self._cam)
-        self.app.setup()
-        return self.construct_ui()
+            msg = 'picamera module missing, please install using:\n     sudo apt-get update \n' \
+                  '     sudo apt-get install python-picamera'
+            print(msg)
+            logging.info(msg)
+        finally:
+            root = Path(__file__).parent / '..' / '..'
+            self._dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
+            self._imageprocessor = ImageProcessor(
+                str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
+                str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
+            self.app = Workflow(self._dataset, self._imageprocessor, self._cam)
+            self.app.setup()
+            return self.construct_ui()
 
     def construct_ui(self):
-        main_container = gui.VBox()
-        main_container.style['top'] = "0px"
-        main_container.style['display'] = "flex"
-        main_container.style['overflow'] = "auto"
-        main_container.style['width'] = "100%"
-        main_container.style['flex-direction'] = "column"
-        main_container.style['position'] = "absolute"
-        main_container.style['justify-content'] = "space-around"
-        main_container.style['margin'] = "0px"
-        main_container.style['align-items'] = "center"
-        main_container.style['left'] = "0px"
-        main_container.style['height'] = "100%"
+        self.main_container = gui.VBox()
+        self.main_container.style['top'] = "0px"
+        self.main_container.style['display'] = "flex"
+        self.main_container.style['overflow'] = "auto"
+        self.main_container.style['width'] = "100%"
+        self.main_container.style['flex-direction'] = "column"
+        self.main_container.style['position'] = "absolute"
+        self.main_container.style['justify-content'] = "space-around"
+        self.main_container.style['margin'] = "0px"
+        self.main_container.style['align-items'] = "center"
+        self.main_container.style['left'] = "0px"
+        self.main_container.style['height'] = "100%"
         hbox_snap = gui.HBox()
         hbox_snap.style['left'] = "0px"
         hbox_snap.style['order'] = "4348867584"
@@ -150,24 +148,25 @@ class WebGui(App):
         button_close.style['width'] = "200px"
         button_close.style['height'] = '30px'
         hbox_snap.append(button_close, 'button_close')
-        main_container.append(hbox_snap, 'hbox_snap')
+        self.main_container.append(hbox_snap, 'hbox_snap')
         width = 200
         height = 200
         self.image_original = PILImageViewerWidget(width=width, height=height)
-        main_container.append(self.image_original, 'image_original')
+        self.main_container.append(self.image_original, 'image_original')
         self.image_result = PILImageViewerWidget(width=width, height=height)
-        main_container.append(self.image_result, 'image_result')
+        self.main_container.append(self.image_result, 'image_result')
         self.image_tagged = PILImageViewerWidget(width=width, height=height)
-        main_container.append(self.image_tagged, 'image_tagged')
+        self.main_container.append(self.image_tagged, 'image_tagged')
 
         button_close.set_on_click_listener(self.on_close_pressed)
         button_snap.set_on_click_listener(self.on_snap_pressed)
         button_open.set_on_click_listener(self.on_open_pressed)
 
-        return main_container
+        return self.main_container
 
     def on_close_pressed(self, *_):
         self.close()  #closes the application
+        # sys.exit()
 
     def on_snap_pressed(self, *_):
         path = Path.home() / 'images'
@@ -191,7 +190,7 @@ class WebGui(App):
         self.image_original.load(file_list[0])
         self.image_tagged.load(str(annotated))
         self.image_result.load(str(cartoon))
-        self.set_root_widget(self.mainContainer)
+        self.set_root_widget(self.main_container)
 
     def on_dialog_cancel(self, widget):
-        self.set_root_widget(self.mainContainer)
+        self.set_root_widget(self.main_container)
