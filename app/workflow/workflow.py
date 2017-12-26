@@ -53,7 +53,7 @@ class Workflow():
             self._image_path = Path(image_path)
             img = self._image_processor.load_image_into_numpy_array(image_path)
             # load a scaled version of the image into memory
-            img_scaled = self._image_processor.load_image_into_numpy_array(image_path, scale=300 / max(img.size))
+            img_scaled = self._image_processor.load_image_into_numpy_array(image_path, scale=300 / max(img.shape))
             boxes, scores, classes, num = self._image_processor.detect(img_scaled)
             # annotate the original image
             self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=threshold)

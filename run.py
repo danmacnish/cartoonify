@@ -42,9 +42,10 @@ def run(path, camera, gui):
             app = Workflow(dataset, imageprocessor, cam)
             app.setup()
         except ImportError as e:
-            print('picamera module missing, please install using:\nsudo apt-get update \n'
-                  'sudo apt-get install python-picamera')
+            print('picamera module missing, please install using:\n     sudo apt-get update \n'
+                  '     sudo apt-get install python-picamera')
             logging.exception(e)
+            sys.exit()
         while True:
             if camera:
                 while not click.confirm('would you like to capture an image?'):
