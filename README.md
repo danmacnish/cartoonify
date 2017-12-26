@@ -5,3 +5,7 @@
 - you will be asked if you want to download the cartoon dataset and image recognition network. Select yes.
 - close the app using cntrl-C
 - start the app again using `cartoonify --gui`
+
+### raspberry pi installation
+
+- install libffi-dev using `sudo apt-get install libffi-dev`
