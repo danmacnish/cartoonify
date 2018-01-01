@@ -9,11 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libpng12-dev \
         libzmq3-dev \
         pkg-config \
-        python3-numpy \
-        python3-scipy \
         rsync \
         libffi-dev \
-        python3-h5py \
         libjpeg-dev \
         libprotobuf-dev \
         protobuf-compiler \
