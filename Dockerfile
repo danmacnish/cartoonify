@@ -24,7 +24,7 @@ ADD tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl .
 
 RUN sudo pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
 
-COPY ./cartoonify .
+COPY cartoonify ~/cartoonify
 
 # IPython
 EXPOSE 8888
