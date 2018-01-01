@@ -26,7 +26,7 @@ RUN sudo pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
 
 COPY cartoonify ~/cartoonify
 
-COPY raspi-requirements.txt ~/
+ADD raspi-requirements.txt .
 
 RUN sudo pip install -r raspi-requirements.txt
 
