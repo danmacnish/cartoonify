@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libprotobuf-dev \
         protobuf-compiler \
         libleveldb-dev \
+        python3-picamera \
         unzip
 
 RUN  apt-get clean && \
