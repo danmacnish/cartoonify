@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python3-scipy \
         rsync \
         libffi-dev \
-        h5py \
+        python3-h5py \
         libjpeg-dev \
         libprotobuf-dev \
         protobuf-compiler \
