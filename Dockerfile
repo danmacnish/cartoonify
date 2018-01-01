@@ -31,3 +31,5 @@ RUN sudo pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
 EXPOSE 8888
 
 WORKDIR "~/"
+
+CMD ["/bin/bash"]
