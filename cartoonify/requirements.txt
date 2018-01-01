@@ -19,13 +19,6 @@ enum34==1.1.6
 ez-setup==0.9
 gcs-oauth2-boto-plugin==1.14
 gizeh==0.1.10
-google-api-core==0.1.1
-google-apitools==0.5.16
-google-auth==1.2.1
-google-cloud-core==0.28.0
-google-cloud-storage==1.6.0
-google-resumable-media==0.3.1
-googleapis-common-protos==1.5.3
 graphviz==0.8.1
 gsutil==4.28
 h5py==2.7.1

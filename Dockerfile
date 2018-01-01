@@ -1,4 +1,6 @@
-FROM resin/rpi-raspbian
+FROM resin/raspberry-pi-python:3.4-slim
+
+ENV INITSYSTEM on
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
@@ -7,24 +9,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libpng12-dev \
         libzmq3-dev \
         pkg-config \
-        python3.4 \
         python3-numpy \
         python3-scipy \
         rsync \
+        libffi-dev \
+        h5py \
+        libjpeg-dev \
+        libprotobuf-dev \
+        protobuf-compiler \
+        libleveldb-dev \
         unzip
-
-RUN wget https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
-
-RUN sudo pip3 install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
 
 RUN  apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-RUN pip --no-cache-dir install -r requirements.txt
+ADD tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl .
 
-ADD tensorflow-0.10.0-cp27-none-linux_armv7l.whl .
-
-RUN pip install tensorflow-0.10.0-cp27-none-linux_armv7l.whl
+RUN sudo pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
 
 # IPython
 EXPOSE 8888
