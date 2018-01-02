@@ -1,6 +1,6 @@
 ### First use
 
-- install app using `python setup.py install`
+- install app using `pip install -e .`
 - run app from command line using `cartoonify`
 - you will be asked if you want to download the cartoon dataset and image recognition network. Select yes.
 - close the app using cntrl-C
@@ -8,7 +8,4 @@
 
 ### raspberry pi installation
 
-- install libffi-dev using `sudo apt-get install libffi-dev`
-- install the camera driver using `sudo apt-get install python3-picamera`
-- install h5py using `sudo apt-get install python3-h5py`
-- install cython using `pip install cython`
+- run `raspi-run.sh`. This will build and run a docker image
