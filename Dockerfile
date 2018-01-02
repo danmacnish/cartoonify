@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         protobuf-compiler \
         libleveldb-dev \
         python3-picamera \
+        python3-matplotlib \
         unzip
 
 RUN  apt-get clean && \
