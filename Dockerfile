@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libleveldb-dev \
         python3-picamera \
         python3-matplotlib \
+        python3-numpy \
         unzip
 
 RUN  apt-get clean && \
