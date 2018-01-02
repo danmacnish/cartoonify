@@ -31,7 +31,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, fil
 def run(path, camera, gui):
     if gui:
         print('starting gui...')
-        start(WebGui, address='0.0.0.0', start_browser=True)
+        start(WebGui, address='0.0.0.0', start_browser=False)
     else:
         try:
             if camera:
