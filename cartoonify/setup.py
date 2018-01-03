@@ -25,7 +25,6 @@ setup(
     # todo add dependent packages
     # Dependent packages (distributions)
     install_requires=[
-        "numpy",
     ],
     entry_points='''
         [console_scripts]
