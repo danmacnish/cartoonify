@@ -4,7 +4,7 @@ import gizeh as gz
 import random
 
 
-class SketchGizeh():
+class SketchGizeh(object):
 
     def __init__(self):
         self._surface = None

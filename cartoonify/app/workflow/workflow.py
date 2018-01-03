@@ -5,7 +5,7 @@ import logging
 from app.sketch import SketchGizeh
 
 
-class Workflow():
+class Workflow(object):
     """controls execution of app
     """
 

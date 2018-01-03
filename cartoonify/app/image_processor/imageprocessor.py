@@ -11,7 +11,7 @@ from pathlib import Path
 import click
 
 
-class ImageProcessor():
+class ImageProcessor(object):
     """performs object detection on an image
     """
 
