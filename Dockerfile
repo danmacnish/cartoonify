@@ -25,7 +25,7 @@ RUN apt-get clean && \
 
 ADD raspi-requirements.txt .
 
-RUN sudo pip --no-cache-dir install -r raspi-requirements.txt
+RUN sudo pip --no-cache-dir install -r raspi-requirements.txt --no-deps
 
 ADD tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl .
 
