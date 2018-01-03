@@ -23,15 +23,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-RUN python -m pip install -U pip
-
 ADD raspi-requirements.txt .
 
-RUN pip --no-cache-dir install -r raspi-requirements.txt
+RUN sudo pip --no-cache-dir install -r raspi-requirements.txt
 
 ADD tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl .
 
-RUN pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl --no-deps
+RUN sudo pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl --no-deps
 
 COPY cartoonify ~/cartoonify
 
