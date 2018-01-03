@@ -19,7 +19,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libblas-dev \
         liblapack-dev \
         gfortran \
-        python-matplotlib \
         python-numpy \
         git \
         unzip
@@ -35,6 +34,8 @@ RUN sudo pip install wiringpi2
 ADD raspi-requirements.txt .
 
 RUN sudo pip --no-cache-dir install -r raspi-requirements.txt --no-deps
+
+RUN sudo pip install -U matplotlib
 
 ADD tensorflow-1.1.0-cp27-none-linux_armv7l.whl .
 
