@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-numpy \
         unzip
 
+RUN sudo apt-get install git
+
 RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
