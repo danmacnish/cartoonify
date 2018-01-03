@@ -23,6 +23,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
+RUN pip install pyserial
+RUN git clone git://git.drogon.net/wiringPi
+RUN cd wiringPi && ./build
+RUN pip install wiringpi2
+
 ADD raspi-requirements.txt .
 
 RUN sudo pip --no-cache-dir install -r raspi-requirements.txt --no-deps
