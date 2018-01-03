@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
+RUN python -m pip install -U pip
+
 ADD raspi-requirements.txt .
 
 RUN pip --no-cache-dir install -r raspi-requirements.txt
