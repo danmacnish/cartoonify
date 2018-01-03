@@ -20,18 +20,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python3-numpy \
         unzip
 
-RUN  apt-get clean && \
+RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-ADD tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl .
-
-RUN sudo pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
-
-COPY cartoonify ~/cartoonify
+RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
+    python get-pip.py && \
+        rm get-pip.py
 
 ADD raspi-requirements.txt .
 
-RUN sudo pip install -r raspi-requirements.txt
+RUN pip install -r raspi-requirements.txt
+
+ADD tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl .
+
+RUN pip install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl --no-deps
+
+COPY cartoonify ~/cartoonify
 
 # IPython
 EXPOSE 8888
