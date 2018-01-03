@@ -35,7 +35,10 @@ ADD raspi-requirements.txt .
 
 RUN sudo pip --no-cache-dir install -r raspi-requirements.txt --no-deps
 
-RUN sudo pip install -U matplotlib
+RUN git clone https://github.com/matplotlib/matplotlib
+RUN cd matplotlib
+RUN sudo python setup.py build
+RUN sudo python setup.py install
 
 ADD tensorflow-1.1.0-cp27-none-linux_armv7l.whl .
 
