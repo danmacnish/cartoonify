@@ -21,23 +21,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         gfortran \
         python-numpy \
         git \
+        libcairo2-dev \
         unzip
 
 RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-RUN pip install pyserial
-RUN git clone git://git.drogon.net/wiringPi
-RUN cd wiringPi && ./build
-RUN sudo pip install wiringpi2
-
 ADD raspi-requirements.txt .
 
 RUN sudo pip --no-cache-dir install -r raspi-requirements.txt --no-deps
 
-RUN git clone https://github.com/matplotlib/matplotlib.git
-RUN cd matplotlib
-RUN sudo python -m pip -v install .
+RUN git clone git://git.drogon.net/wiringPi && cd wiringPi && ./build
+RUN sudo pip install wiringpi2
+
+RUN git clone https://github.com/matplotlib/matplotlib.git &&  \
+                cd matplotlib && \
+                sudo python -m pip -v install .
 
 ADD tensorflow-1.1.0-cp27-none-linux_armv7l.whl .
 
