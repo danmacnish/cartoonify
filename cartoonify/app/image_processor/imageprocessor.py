@@ -5,7 +5,7 @@ import tarfile
 import tensorflow as tf
 from PIL import Image
 from app.object_detection import label_map_util
-from app.object_detection import visualization_utils as vis_util
+# from app.object_detection import visualization_utils as vis_util
 import logging
 from pathlib import Path
 import click
@@ -112,15 +112,15 @@ class ImageProcessor(object):
         :return: annotated image
         """
         annotated_image = image.copy()
-        vis_util.visualize_boxes_and_labels_on_image_array(
-            annotated_image,
-            np.squeeze(boxes),
-            np.squeeze(classes).astype(np.int32),
-            np.squeeze(scores),
-            self._labels,
-            use_normalized_coordinates=True,
-            line_thickness=8,
-            min_score_thresh=threshold)
+        # vis_util.visualize_boxes_and_labels_on_image_array(
+        #     annotated_image,
+        #     np.squeeze(boxes),
+        #     np.squeeze(classes).astype(np.int32),
+        #     np.squeeze(scores),
+        #     self._labels,
+        #     use_normalized_coordinates=True,
+        #     line_thickness=8,
+        #     min_score_thresh=threshold)
         return annotated_image
 
     @property
