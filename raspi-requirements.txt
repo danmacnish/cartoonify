@@ -26,3 +26,5 @@ Werkzeug==0.14.1
 pathlib
 pyserial
 mock
+pbr
+funcsigs

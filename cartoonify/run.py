@@ -21,6 +21,9 @@ imageprocessor = ImageProcessor(str(root / 'downloads/detection_models/ssd_mobil
 
 # configure logging
 logging_filename = datetime.datetime.now().strftime('%Y%m%d-%H%M.log')
+logging_path = Path(__file__).parent / 'logs'
+if not logging_path.exists():
+    logging_path.mkdir()
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, filename=str(Path(__file__).parent / 'logs' / logging_filename))
 
 
