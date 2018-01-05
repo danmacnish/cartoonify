@@ -132,8 +132,5 @@ class ImageProcessor(object):
     def labels(self):
         return self._labels
 
-    def __del__(self):
-        self._session.close()
-
     def close(self):
         self._session.close()

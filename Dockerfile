@@ -38,8 +38,6 @@ ADD raspi_install/tensorflow-1.1.0-cp27-none-linux_armv7l.whl .
 
 RUN sudo pip install tensorflow-1.1.0-cp27-none-linux_armv7l.whl --no-deps
 
-ADD cartoonify ~/cartoonify
-
 # IPython
 EXPOSE 8888
 

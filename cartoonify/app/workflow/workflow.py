@@ -94,8 +94,5 @@ class Workflow(object):
             writer = png.Writer(img.shape[1], img.shape[0], greyscale=False, bitdepth=8)
             writer.write(f, np.reshape(img, (-1, img.shape[1] * img.shape[2])))
 
-    def __del__(self):
-        self._image_processor.close()
-
     def close(self):
         self._image_processor.close()
