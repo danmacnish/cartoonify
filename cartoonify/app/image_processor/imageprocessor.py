@@ -15,8 +15,8 @@ class ImageProcessor(object):
     """performs object detection on an image
     """
 
-    def __init__(self, path_to_model, path_to_labels):
-        self._model_name = 'ssd_mobilenet_v1_coco_2017_11_17'
+    def __init__(self, path_to_model, path_to_labels, model_name):
+        self._model_name = model_name
         # Path to frozen detection graph. This is the actual model that is used for the object detection.
         self._path_to_model = path_to_model
         # strings used to add correct label for each box.

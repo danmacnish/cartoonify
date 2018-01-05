@@ -13,10 +13,12 @@ import importlib
 import sys
 
 root = Path(__file__).parent
+tensorflow_model_name = 'ssd_inception_v2_coco_2017_11_17'
+model_path = root / 'downloads' / 'detection_models' / tensorflow_model_name / 'frozen_inference_graph.pb'
 
 # init objects
 dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
-imageprocessor = ImageProcessor(str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
+imageprocessor = ImageProcessor(str(model_path),
                                 str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
 
 # configure logging
