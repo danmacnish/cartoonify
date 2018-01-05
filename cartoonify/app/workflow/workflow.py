@@ -28,6 +28,8 @@ class Workflow(object):
         print('loading tensorflow model...')
         self._image_processor.setup()
         print('Done')
+        if self._cam is not None:
+            self._cam.resolution = (640, 480)
 
 
     def capture(self, path):
