@@ -28,3 +28,4 @@ pyserial
 mock
 pbr
 funcsigs
+absl-py

@@ -5,7 +5,7 @@ import click
 import tarfile
 import os
 import sys
-from ..cartoonify.app.image_processor import tensorflow_model_name, model_path
+from cartoonify.app.image_processor import tensorflow_model_name, model_path
 
 
 root = Path(__file__).parent
