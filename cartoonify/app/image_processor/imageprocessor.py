@@ -12,9 +12,8 @@ import click
 
 
 root = Path(__file__).parent
-tensorflow_model_name = 'faster_rcnn_inception_v2_coco_2017_11_08'
+tensorflow_model_name = 'ssd_mobilenet_v1_coco_2017_11_17'
 model_path = root / '..' / '..' / 'downloads' / 'detection_models' / tensorflow_model_name / 'frozen_inference_graph.pb'
-
 
 class ImageProcessor(object):
     """performs object detection on an image
