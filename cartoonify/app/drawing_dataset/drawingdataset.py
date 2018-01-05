@@ -22,6 +22,13 @@ class DrawingDataset(object):
         self._logger = logging.getLogger(self.__class__.__name__)
 
     def setup(self):
+        try:
+            with jsonlines.open(self._category_mapping_filepath, mode='r') as reader:
+                self._category_mapping = reader.read()
+        except FileNotFoundError as e:
+            self._logger.exception(e)
+            print('label_mapping.jsonl not found')
+            raise e
         self._categories = self.load_categories(self._path)
         if not self._categories:
             if click.confirm('no drawings available, would you like to download the dataset? '
@@ -31,13 +38,6 @@ class DrawingDataset(object):
             else:
                 self._logger.error('no drawings available, and user declined to download dataset')
                 raise ValueError('no drawings available, please download dataset')
-        try:
-            with jsonlines.open(self._category_mapping_filepath, mode='r') as reader:
-                self._category_mapping = reader.read()
-        except FileNotFoundError as e:
-            self._logger.exception(e)
-            print('label_mapping.jsonl not found')
-            raise e
 
     def download(self, url, filename, path):
         """download file @ specified url and save it to path
