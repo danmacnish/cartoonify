@@ -34,9 +34,9 @@ RUN sudo pip --no-cache-dir install -r raspi-requirements.txt --no-deps
 RUN git clone git://git.drogon.net/wiringPi && cd wiringPi && ./build
 RUN sudo pip install wiringpi2
 
-ADD raspi_install/tensorflow-1.1.0-cp27-none-linux_armv7l.whl .
+ADD raspi_install/tensorflow-1.4.0-cp27-none-any.whl .
 
-RUN sudo pip install tensorflow-1.1.0-cp27-none-linux_armv7l.whl --no-deps
+RUN sudo pip install tensorflow-1.4.0-cp27-none-any.whl --no-deps
 
 # IPython
 EXPOSE 8888
