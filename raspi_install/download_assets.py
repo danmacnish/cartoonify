@@ -24,11 +24,10 @@ def main():
 def download_drawing_dataset():
     try:
         path = download_path / 'drawing_dataset'
-        with jsonlines.open(label_map_path, mode='r') as reader:
+        with jsonlines.open(str(label_map_path), mode='r') as reader:
             category_mapping = reader.read()
         print('checking whether drawing files already exist...')
-        categories = load_categories(path)
-        missing_files = set(categories).symmetric_difference(set(category_mapping.values()))
+        missing_files = [file for file in category_mapping.values() if not Path(path / Path(file).with_suffix('.bin')).exists()]
         if missing_files:
             print('{} drawing files missing, downloading the following files: '.format(len(missing_files)))
             for f in missing_files:
@@ -36,7 +35,6 @@ def download_drawing_dataset():
             download_recurse(quickdraw_dataset_url, path, missing_files)
     except FileNotFoundError as e:
         print('label_mapping.jsonl not found')
-        raise e
 
 
 def download_tensorflow_model():
