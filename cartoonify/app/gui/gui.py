@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 from app.workflow import Workflow
 from app.drawing_dataset import DrawingDataset
-from app.image_processor import ImageProcessor
+from app.image_processor import ImageProcessor, tensorflow_model_name, model_path
 import importlib
 import logging
 import sys
@@ -61,8 +61,9 @@ class WebGui(App):
             root = Path(__file__).parent / '..' / '..'
             self._dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
             self._imageprocessor = ImageProcessor(
-                str(root / 'downloads/detection_models/ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'),
-                str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'))
+                str(model_path),
+                str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'),
+                tensorflow_model_name)
             self.app = Workflow(self._dataset, self._imageprocessor, self._cam)
             self.app.setup()
             return self.construct_ui()
@@ -165,6 +166,7 @@ class WebGui(App):
         return self.main_container
 
     def on_close_pressed(self, *_):
+        self.app.close()
         self.close()  #closes the application
         # sys.exit()
 

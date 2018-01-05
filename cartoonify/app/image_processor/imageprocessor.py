@@ -11,6 +11,11 @@ from pathlib import Path
 import click
 
 
+root = Path(__file__).parent
+tensorflow_model_name = 'ssd_inception_v2_coco_2017_11_17'
+model_path = root / '..' / '..' / 'downloads' / 'detection_models' / tensorflow_model_name / 'frozen_inference_graph.pb'
+
+
 class ImageProcessor(object):
     """performs object detection on an image
     """
@@ -31,6 +36,7 @@ class ImageProcessor(object):
         self._scores = None
         self._num = None
         self._logger = None
+        self._session = None
 
     def setup(self):
         self._logger = logging.getLogger(self.__class__.__name__)
@@ -66,6 +72,7 @@ class ImageProcessor(object):
                 serialized_graph = fid.read()
                 od_graph_def.ParseFromString(serialized_graph)
                 tf.import_graph_def(od_graph_def, name='')
+        self._session = tf.Session(graph=self._detection_graph)
 
     def load_labels(self, path):
         """load labels from .pb file, and map to a dict with integers, e.g. 1=aeroplane
@@ -87,24 +94,22 @@ class ImageProcessor(object):
     def detect(self, image):
         """detect objects in the image
         """
-        with self._detection_graph.as_default():
-            with tf.Session(graph=self._detection_graph) as sess:
-                # Definite input and output Tensors for detection_graph
-                image_tensor = self._detection_graph.get_tensor_by_name('image_tensor:0')
-                # Each box represents a part of the image where a particular object was detected.
-                detection_boxes = self._detection_graph.get_tensor_by_name('detection_boxes:0')
-                # Each score represent how level of confidence for each of the objects.
-                # Score is shown on the result image, together with the class label.
-                detection_scores = self._detection_graph.get_tensor_by_name('detection_scores:0')
-                detection_classes = self._detection_graph.get_tensor_by_name('detection_classes:0')
-                num_detections = self._detection_graph.get_tensor_by_name('num_detections:0')
-                # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-                image_np_expanded = np.expand_dims(image, axis=0)
-                # Actual detection.
-                (self._boxes, self._scores, self._classes, num) = sess.run(
-                    [detection_boxes, detection_scores, detection_classes, num_detections],
-                    feed_dict={image_tensor: image_np_expanded})
-                return self._boxes, self._scores, self._classes, self._num
+        # Definite input and output Tensors for detection_graph
+        image_tensor = self._detection_graph.get_tensor_by_name('image_tensor:0')
+        # Each box represents a part of the image where a particular object was detected.
+        detection_boxes = self._detection_graph.get_tensor_by_name('detection_boxes:0')
+        # Each score represent how level of confidence for each of the objects.
+        # Score is shown on the result image, together with the class label.
+        detection_scores = self._detection_graph.get_tensor_by_name('detection_scores:0')
+        detection_classes = self._detection_graph.get_tensor_by_name('detection_classes:0')
+        num_detections = self._detection_graph.get_tensor_by_name('num_detections:0')
+        # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
+        image_np_expanded = np.expand_dims(image, axis=0)
+        # Actual detection.
+        (self._boxes, self._scores, self._classes, num) = self._session.run(
+            [detection_boxes, detection_scores, detection_classes, num_detections],
+            feed_dict={image_tensor: image_np_expanded})
+        return self._boxes, self._scores, self._classes, self._num
 
     def annotate_image(self, image, boxes, classes, scores, threshold=0.5):
         """draws boxes around the detected objects and labels them
@@ -126,3 +131,9 @@ class ImageProcessor(object):
     @property
     def labels(self):
         return self._labels
+
+    def __del__(self):
+        self._session.close()
+
+    def close(self):
+        self._session.close()
