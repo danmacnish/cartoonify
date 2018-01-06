@@ -54,7 +54,7 @@ def run(path, camera, gui):
             if camera:
                 while not click.confirm('would you like to capture an image?'):
                     pass
-                path = Path.home() / 'images' / 'image.jpg'
+                path = root / 'images' / 'image.jpg'
                 app.capture(str(path))
             else:
                 path = Path(input("enter the filepath of the image to process:"))

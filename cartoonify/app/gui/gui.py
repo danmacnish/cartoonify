@@ -171,7 +171,7 @@ class WebGui(App):
         # sys.exit()
 
     def on_snap_pressed(self, *_):
-        path = Path.home() / 'images' / 'image.jpg'
+        path = Path(__file__).parent / '..' / '..' / 'images' / 'image.jpg'
         self.app.capture(str(path))
         self.process_image(None, [path])
 
