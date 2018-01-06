@@ -3,6 +3,7 @@ import numpy as np
 from pathlib import Path
 import logging
 from app.sketch import SketchGizeh
+from __future__ import division
 
 
 class Workflow(object):

@@ -11,6 +11,7 @@ from app.gui import WebGui
 from remi import start
 import importlib
 import sys
+from __future__ import division
 
 root = Path(__file__).parent
 
@@ -53,7 +54,8 @@ def run(path, camera, gui):
         while True:
             if camera:
                 while not click.confirm('would you like to capture an image?'):
-                    pass
+                    app.close()
+                    break
                 path = root / 'images' / 'image.jpg'
                 if not path.parent.exists():
                     path.parent.mkdir()
@@ -62,9 +64,6 @@ def run(path, camera, gui):
                 path = Path(input("enter the filepath of the image to process:"))
             app.process(str(path))
             app.save_results()
-            if not click.confirm('do you want to process another image?'):
-                app.close()
-                break
 
 if __name__=='__main__':
     run()
