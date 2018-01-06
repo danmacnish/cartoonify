@@ -5,6 +5,6 @@ sudo docker run --mount type=bind,source=$(pwd)/cartoonify,target=/cartoonify \
  --privileged \
  --entrypoint /bin/bash \
  -p 8081:8081 \
- -p 9000:9000 \
+ -p 8082:8082 \
  -it \
  cartoonify
