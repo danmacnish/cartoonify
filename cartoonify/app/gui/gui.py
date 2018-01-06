@@ -189,11 +189,8 @@ class WebGui(App):
     def process_image(self, widget, file_list):
         if len(file_list) != 1:
             return
-        print(file_list[0])
         self.app.process(file_list[0])
         annotated, cartoon = self.app.save_results()
-        print(str(cartoon))
-        print('cartoon path exists: {}'.format(cartoon.is_file()))
         self.image_original.load(file_list[0])
         self.image_tagged.load(str(annotated))
         self.image_result.load(str(cartoon))
