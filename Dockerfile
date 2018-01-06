@@ -38,6 +38,8 @@ ADD raspi_install/tensorflow-1.4.0-cp27-none-any.whl .
 
 RUN sudo pip install tensorflow-1.4.0-cp27-none-any.whl --no-deps
 
-WORKDIR "~/"
+COPY raspi_install/startup.sh .
+
+ENTRYPOINT ["startup.sh"]
 
 CMD ["/bin/bash"]
