@@ -14,7 +14,7 @@ import sys
 
 class PILImageViewerWidget(gui.Image):
     def __init__(self, **kwargs):
-        super().__init__('/res/logo.png', **kwargs)
+        super(PILImageViewerWidget, self).__init__('/res/logo.png', **kwargs)
         self._buf = None
 
     def load(self, file_path_name):
@@ -41,7 +41,7 @@ class WebGui(App):
     """
 
     def __init__(self, *args):
-        super().__init__(*args)
+        super(WebGui, self).__init__(*args)
 
     def idle(self):
         # idle function called every update cycle

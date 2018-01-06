@@ -54,13 +54,14 @@ def run(path, camera, gui):
             sys.exit()
         while True:
             if camera:
-                while not click.confirm('would you like to capture an image?'):
+                if click.confirm('would you like to capture an image?'):
+                    path = root / 'images' / 'image.jpg'
+                    if not path.parent.exists():
+                        path.parent.mkdir()
+                    app.capture(str(path))
+                else:
                     app.close()
                     break
-                path = root / 'images' / 'image.jpg'
-                if not path.parent.exists():
-                    path.parent.mkdir()
-                app.capture(str(path))
             else:
                 path = Path(input("enter the filepath of the image to process:"))
             app.process(str(path))
