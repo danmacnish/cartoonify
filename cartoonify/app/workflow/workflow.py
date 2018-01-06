@@ -40,7 +40,7 @@ class Workflow(object):
             raise AttributeError("app wasn't started with --camera flag, so you can't use the camera to capture images.")
         return path
 
-    def process(self, image_path, threshold=0.3
+    def process(self, image_path, threshold=0.3)
         """processes an image. If no path supplied, then capture from camera
 
         :param float threshold: threshold for object detection (0.0 to 1.0)
