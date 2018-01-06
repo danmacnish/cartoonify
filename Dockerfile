@@ -42,4 +42,4 @@ COPY raspi_install/startup.sh /
 
 ENTRYPOINT ["/startup.sh"]
 
-CMD ["/bin/bash"]
+CMD ["cartoonify", "--gui"]
