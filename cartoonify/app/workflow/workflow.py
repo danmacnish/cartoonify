@@ -77,7 +77,7 @@ class Workflow(object):
 
         :return tuple: (path to annotated image, path to cartoon image)
         """
-        annotated_path = self._image_path.with_name('annotated.png')
+        annotated_path = self._image_path
         cartoon_path = self._image_path.with_name('cartoon.png')
         # self._save_3d_numpy_array_as_png(self._annotated_image, annotated_path)
         self._sketcher.save_png(cartoon_path)
