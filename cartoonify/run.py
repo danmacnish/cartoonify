@@ -37,7 +37,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, fil
 def run(path, camera, gui):
     if gui:
         print('starting gui...')
-        start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, start_browser=False)
+        start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, host_name='raspberrypi.local', start_browser=False)
     else:
         try:
             if camera:
