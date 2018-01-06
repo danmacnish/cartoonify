@@ -58,7 +58,7 @@ class Workflow(object):
             img_scaled = self._image_processor.load_image_into_numpy_array(image_path, scale=300 / max(img.shape))
             boxes, scores, classes, num = self._image_processor.detect(img_scaled)
             # annotate the original image
-            self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=threshold)
+            self._annotated_image = img
             self._sketcher = SketchGizeh()
             self._sketcher.setup()
             self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
