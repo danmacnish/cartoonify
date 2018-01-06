@@ -1,3 +1,4 @@
+from __future__ import division
 import click
 from app.workflow import Workflow
 from app.drawing_dataset import DrawingDataset
@@ -11,7 +12,7 @@ from app.gui import WebGui
 from remi import start
 import importlib
 import sys
-from __future__ import division
+
 
 root = Path(__file__).parent
 
