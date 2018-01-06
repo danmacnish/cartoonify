@@ -38,9 +38,6 @@ ADD raspi_install/tensorflow-1.4.0-cp27-none-any.whl .
 
 RUN sudo pip install tensorflow-1.4.0-cp27-none-any.whl --no-deps
 
-# IPython
-EXPOSE 8888
+WORKDIR "~/"
 
-WORKDIR "/cartoonify"
-
-CMD "sudo pip install -e . && cartoonify --gui"
+CMD "cd /cartoonify && sudo pip install -e . && cartoonify --gui"
