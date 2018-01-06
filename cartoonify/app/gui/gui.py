@@ -172,6 +172,8 @@ class WebGui(App):
 
     def on_snap_pressed(self, *_):
         path = Path(__file__).parent / '..' / '..' / 'images' / 'image.jpg'
+        if not path.parent.exists():
+            path.parent.mkdir()
         self.app.capture(str(path))
         self.process_image(None, [path])
 
