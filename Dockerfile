@@ -40,4 +40,4 @@ RUN sudo pip install tensorflow-1.4.0-cp27-none-any.whl --no-deps
 
 WORKDIR "~/"
 
-CMD "cd /cartoonify && sudo pip install -e . && cartoonify --gui"
+CMD cd /cartoonify && sudo pip install -e . && cartoonify --gui
