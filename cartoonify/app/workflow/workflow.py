@@ -19,6 +19,7 @@ class Workflow(object):
         self._logger = logging.getLogger(self.__class__.__name__)
         self._image = None
         self._annotated_image = None
+        self._image_labels = []
 
     def setup(self):
         print('loading cartoon dataset...')
@@ -62,7 +63,7 @@ class Workflow(object):
             self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=threshold)
             self._sketcher = SketchGizeh()
             self._sketcher.setup()
-            self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
+            self._image_labels = self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
                                    np.squeeze(classes).astype(np.int32),
                                    np.squeeze(scores),
                                    self._image_processor.labels,
@@ -99,3 +100,7 @@ class Workflow(object):
 
     def close(self):
         self._image_processor.close()
+
+    @property
+    def image_labels(self):
+        return self._image_labels

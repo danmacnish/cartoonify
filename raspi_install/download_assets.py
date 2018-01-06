@@ -28,7 +28,8 @@ def download_drawing_dataset():
         with jsonlines.open(str(label_map_path), mode='r') as reader:
             category_mapping = reader.read()
         print('checking whether drawing files already exist...')
-        missing_files = [file for file in category_mapping.values() if not Path(path / Path(file).with_suffix('.bin')).exists()]
+        drawing_categories = ['face', 't-shirt', 'pants'] + category_mapping.values()
+        missing_files = [file for file in drawing_categories if not Path(path / Path(file).with_suffix('.bin')).exists()]
         if missing_files:
             print('{} drawing files missing, downloading the following files: '.format(len(missing_files)))
             for f in missing_files:

@@ -156,8 +156,9 @@ class WebGui(App):
         self.main_container.append(self.image_original, 'image_original')
         self.image_result = PILImageViewerWidget(width=width, height=height)
         self.main_container.append(self.image_result, 'image_result')
-        self.image_tagged = PILImageViewerWidget(width=width, height=height)
-        self.main_container.append(self.image_tagged, 'image_tagged')
+        self.image_label = gui.Label('', width=400, height=30, margin='10px')
+        self.image_label.style['align-items'] = "center"
+        self.main_container.append(self.image_label, 'image_label')
 
         button_close.set_on_click_listener(self.on_close_pressed)
         button_snap.set_on_click_listener(self.on_snap_pressed)
@@ -192,8 +193,8 @@ class WebGui(App):
         self.app.process(file_list[0])
         annotated, cartoon = self.app.save_results()
         self.image_original.load(file_list[0])
-        self.image_tagged.load(str(annotated))
         self.image_result.load(str(cartoon))
+        self.image_label.set_text(', '.join(self.app.image_labels))
         self.set_root_widget(self.main_container)
 
     def on_dialog_cancel(self, widget):

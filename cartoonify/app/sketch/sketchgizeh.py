@@ -57,12 +57,16 @@ class SketchGizeh(object):
 
     def draw_object_recognition_results(self, boxes, classes, scores, labels, dataset, threshold=0.5):
         """draw results of object recognition
+
+        :return: list of objects drawn to the canvas
         """
+        drawn_objects = []  # list of the objects drawn
         for i in range(boxes.shape[0]):
             if scores is None or scores[i] > threshold:
                 box = tuple(boxes[i].tolist())
                 if classes[i] in labels.keys():
                     class_name = labels[classes[i]]['name']
+                    drawn_objects.append(class_name)
                 else:
                     raise ValueError('no label for index {}'.format(i))
                 ymin, xmin, ymax, xmax = box
@@ -73,6 +77,7 @@ class SketchGizeh(object):
                 else:
                     drawing = dataset.get_drawing(class_name, random.randint(1, 1000))
                     self.draw(drawing, scale=size, pos=centre)
+        return drawn_objects
 
     def get_npimage(self):
         return self._surface.get_npimage()
