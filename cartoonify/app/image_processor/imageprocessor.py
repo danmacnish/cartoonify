@@ -86,9 +86,8 @@ class ImageProcessor(object):
         """load image into NxNx3 numpy array
         """
         image = Image.open(path)
-        size = tuple([int(scale * dim) for dim in image.size])
-        print(size)
-        image = image.resize(size)
+        print(image.size)
+        image = image.resize(tuple(int(scale * dim) for dim in image.size))
         (im_width, im_height) = image.size
         return np.array(image.getdata()).reshape((im_height, im_width, 3)).astype(np.uint8)
 
