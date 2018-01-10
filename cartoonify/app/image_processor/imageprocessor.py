@@ -69,13 +69,12 @@ class ImageProcessor(object):
         self._logger.info('loading tensorflow model')
         if not Path(path).exists():
             raise FileNotFoundError('model file missing: {}'.format(str(path)))
-        self._detection_graph = tf.Graph()
-        with self._detection_graph.as_default():
-            od_graph_def = tf.GraphDef()
-            with tf.gfile.GFile(path, 'rb') as fid:
-                serialized_graph = fid.read()
-                od_graph_def.ParseFromString(serialized_graph)
-                tf.import_graph_def(od_graph_def, name='')
+        with tf.gfile.GFile(path, 'rb') as fid:
+            graph_def = tf.GraphDef()
+            graph_def.ParseFromString(fid.read())
+        with tf.Graph().as_default() as graph:
+            tf.import_graph_def(graph_def, name='')
+        self._detection_graph = graph
         self._session = tf.Session(graph=self._detection_graph)
         # Definite input and output Tensors for detection_graph
         self.image_tensor = self._detection_graph.get_tensor_by_name('image_tensor:0')
