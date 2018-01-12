@@ -64,8 +64,12 @@ def run(path, camera, gui):
                     break
             else:
                 path = Path(input("enter the filepath of the image to process:"))
-            app.process(str(path))
-            app.save_results()
+            if str(path) != '.' or 'exit':
+                app.process(str(path))
+                app.save_results()
+            else:
+                app.close()
+                sys.exit()
 
 if __name__=='__main__':
     run()
