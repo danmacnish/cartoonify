@@ -51,9 +51,22 @@ ADD raspi_install/tensorflow-1.4.0-cp27-none-any.whl .
 
 RUN sudo pip install tensorflow-1.4.0-cp27-none-any.whl --no-deps
 
+# Add User pi
+RUN useradd \
+  --groups=sudo \
+  --create-home \
+  --home-dir=/home/pi \
+  --shell=/bin/bash \
+  --password=$(mkpasswd pi) \
+  pi \
+  && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
+
+# generate bare minimum to keep chromium happy
+RUN mkdir -p /home/pi/.config/chromium/Default && sqlite3 /home/pi/.config/chromium/Default/Web\ Data "CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY, value LONGVARCHAR); INSERT INTO meta VALUES('version','46'); CREATE TABLE keywords (foo INTEGER);";
+
 COPY raspi_install/startup.sh /
 
-COPY raspi_install/.xinitrc /root/
+COPY raspi_install/.xinitrc /home/pi/
 COPY raspi_install/autostart /etc/xdg/openbox/
 
 EXPOSE 8081
