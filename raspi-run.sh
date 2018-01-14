@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 sudo docker run -d \
- --hostname=cartoonify \
  --name=cartoonify \
+ --net=host \
  --mount type=bind,source=$(pwd)/cartoonify,target=/cartoonify \
  --device /dev/ttyAMA0:/dev/ttyAMA0 \
  --device /dev/fb1:/dev/fb1 \
