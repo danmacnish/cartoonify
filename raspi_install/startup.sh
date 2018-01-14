@@ -2,4 +2,4 @@
 cd /cartoonify
 sudo pip install -e .
 cartoonify --gui=raspi-local &
-startx -- -nocursor
+su - pi -c startx -- -nocursor
