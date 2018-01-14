@@ -7,5 +7,4 @@ sudo docker run -it\
  -p 8081:8081 \
  -p 8082:8082 \
  -w /cartoonify \
- cartoonify \
- /bin/bash
+ cartoonify
