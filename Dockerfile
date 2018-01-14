@@ -44,6 +44,9 @@ RUN sudo pip install tensorflow-1.4.0-cp27-none-any.whl --no-deps
 
 COPY raspi_install/startup.sh /
 
+COPY raspi_install/.xinitrc ~/
+COPY raspi_install/autostart /etc/xdg/openbox/
+
 EXPOSE 8081
 EXPOSE 8082
 
