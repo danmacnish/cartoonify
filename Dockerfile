@@ -24,9 +24,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libcairo2-dev \
         unzip \
         xserver-xorg \
-        xinit \
         openbox \
-        nano
+        nano \
+        chromium-browser \
+        fbset \
+        htop \
+        libnss3 \
+        psmisc \
+        sqlite3 \
+        ttf-mscorefonts-installer \
+        x11-xserver-utils \
+        xinit \
+        xwit
 
 RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
