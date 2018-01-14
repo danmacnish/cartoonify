@@ -9,6 +9,7 @@ from os.path import join
 import logging
 import datetime
 from app.gui import WebGui
+from app.gui import RaspiLocalGui
 from remi import start
 import importlib
 import sys
@@ -31,13 +32,16 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, fil
 
 
 @click.command()
-@click.option('--path', default=None, type=click.Path(), help='directory to save results to')
-@click.option('--camera', is_flag=True, help='use this flag to enable captures from the raspberry pi camera')
-@click.option('--gui', is_flag=True, help='enables gui')
-def run(path, camera, gui):
-    if gui:
-        print('starting gui...')
+@click.option('--camera', is_flag=True, help='enables captures from the raspberry pi camera')
+@click.option('--gui', default=None, help="valid options: 'raspi-local': runs a smaller gui designed for a 2.4 inch TFT screen \n"
+                                          "'raspi-remote': runs a larger gui designed for remote access from outside the pi \n"
+                                          "'None': disables the gui (app runs as a cli)")
+def run(camera, gui):
+    if gui == 'raspi-remote':
+        print('starting raspi remote gui...')
         start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, host_name='raspberrypi.local', start_browser=False)
+    elif gui == 'raspi-local':
+        start(RaspiLocalGui, address='0.0.0.0', websocket_port=8082, port=8081, start_browser=False)
     else:
         try:
             if camera:

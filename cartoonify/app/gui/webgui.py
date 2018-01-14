@@ -1,38 +1,12 @@
 import remi.gui as gui
 from remi import App
-import PIL.Image
-import io
-import time
+from .common import PILImageViewerWidget
 from pathlib import Path
 from app.workflow import Workflow
 from app.drawing_dataset import DrawingDataset
 from app.image_processor import ImageProcessor, tensorflow_model_name, model_path
 import importlib
 import logging
-import sys
-
-
-class PILImageViewerWidget(gui.Image):
-    def __init__(self, **kwargs):
-        super(PILImageViewerWidget, self).__init__('/res/logo.png', **kwargs)
-        self._buf = None
-
-    def load(self, file_path_name):
-        pil_image = PIL.Image.open(file_path_name)
-        self._buf = io.BytesIO()
-        pil_image.save(self._buf, format='png')
-        self.refresh()
-
-    def refresh(self):
-        i = int(time.time() * 1e6)
-        self.attributes['src'] = "/%s/get_image_data?update_index=%d" % (id(self), i)
-
-    def get_image_data(self, update_index):
-        if self._buf is None:
-            return None
-        self._buf.seek(0)
-        headers = {'Content-type': 'image/png'}
-        return [self._buf.read(), headers]
 
 
 class WebGui(App):
@@ -58,6 +32,7 @@ class WebGui(App):
             print(msg)
             logging.info(msg)
         finally:
+            print('loading gui...')
             root = Path(__file__).parent / '..' / '..'
             self._dataset = DrawingDataset(str(root / 'downloads/drawing_dataset'), str(root / 'app/label_mapping.jsonl'))
             self._imageprocessor = ImageProcessor(
