@@ -22,7 +22,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-numpy \
         git \
         libcairo2-dev \
-        unzip
+        unzip \
+        xserver-xorg \
+        xinit \
+        openbox \
+        nano
 
 RUN apt-get clean && \
         rm -rf /var/lib/apt/lists/*
