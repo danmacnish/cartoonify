@@ -42,7 +42,7 @@ def run(camera, gui):
         start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, host_name='raspberrypi.local', start_browser=False)
     elif gui == 'raspi-local':
         print('starting raspi local gui...')
-        start(RaspiLocalGui, address='0.0.0.0', websocket_port=8082, port=8081, start_browser=False)
+        start(RaspiLocalGui, address='172.17.0.2', websocket_port=8082, port=8081, host_name='172.17.0.2', start_browser=False)
     else:
         try:
             if camera:
