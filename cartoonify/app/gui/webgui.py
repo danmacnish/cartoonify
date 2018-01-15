@@ -16,6 +16,7 @@ class WebGui(App):
 
     def __init__(self, *args):
         super(WebGui, self).__init__(*args)
+        self._cam = None
 
     def idle(self):
         # idle function called every update cycle
