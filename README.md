@@ -16,3 +16,7 @@
 - run `raspi-build.sh`. This will download the google quickdraw dataset and tensorflow model,
 then build the required docker image.
 - run `raspi-run.sh`. This will start the docker image.
+
+### optional raspi setup
+
+- instructions for [setting up raspi as an access point](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md)
