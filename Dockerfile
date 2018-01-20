@@ -39,5 +39,7 @@ ADD raspi_install/tensorflow-1.4.0-cp27-none-any.whl .
 RUN sudo pip install tensorflow-1.4.0-cp27-none-any.whl --no-deps
 
 COPY raspi_install/startup.sh /
+COPY raspi_install/listen-for-shutdown.py /
+COPY raspi_install/listen-for-shutdown.sh /
 
 ENTRYPOINT ["/startup.sh"]
