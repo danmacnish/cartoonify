@@ -18,7 +18,7 @@ void setup() {
   state = off;
   pinMode(LED_PIN, OUTPUT);
   pinMode(RPI_POWER_PIN, OUTPUT);
-  pinMode(RPI_ON_PIN, INPUT_PULLUP);
+  pinMode(RPI_ON_PIN, INPUT);
   pinMode(POWER_BUTTON, INPUT_PULLUP);
   digitalWrite(RPI_POWER_PIN, LOW);
   Timer1.initialize(500000);
