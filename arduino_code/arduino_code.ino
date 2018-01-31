@@ -4,7 +4,7 @@
 
 
 volatile states state;
-const int RPI_ON_PIN = 9;  //low when rpi is on
+const int RPI_ON_PIN = 10;  //low when rpi is on
 const int LED_PIN  = 13;  
 const int POWER_BUTTON = 2; //low when power button pressed
 const int RPI_POWER_PIN = 12;  //set this high to switch optocoupler and turn rpi on/off
@@ -34,9 +34,9 @@ void loop() {
   Serial.print(power_button.read());
   Serial.print(" state: ");
   Serial.println(state);
-  if (!rpi_on.read() && (state == powering_up || state == off)) {
+  if (rpi_on.read() && (state == powering_up || state == off)) {
     state = on;
-  } else if (rpi_on.read() && rpi_on.duration() > 10000 && state == powering_down) {
+  } else if (!rpi_on.read() && rpi_on.duration() > 10000 && state == powering_down) {
       state = off;
   } else if (!power_button.read() && power_button.duration() > 1500 && state == on) {
     state = powering_down;

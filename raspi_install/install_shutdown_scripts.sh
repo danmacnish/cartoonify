@@ -5,7 +5,7 @@ echo "installing requirements..."
 pip install rpi.gpio
 echo "copying scripts..."
 sudo cp listen-for-shutdown.py /usr/local/bin/
-sudo mv listen-for-shutdown.sh /etc/init.d/
+sudo cp listen-for-shutdown.sh /etc/init.d/
 echo "setting script to run on boot..."
 sudo update-rc.d listen-for-shutdown.sh defaults
 sudo /etc/init.d/listen-for-shutdown.sh start
