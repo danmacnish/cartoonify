@@ -9,16 +9,15 @@ const int LED_PIN  = 13;
 const int POWER_BUTTON = 2; //low when power button pressed
 const int RPI_POWER_PIN = 12;  //set this high to switch optocoupler and turn rpi on/off
 
+unsigned long start_time = 0;
 volatile int ledState = LOW;
 Bounce power_button = Bounce(POWER_BUTTON, 50);
-Bounce rpi_on = Bounce(RPI_ON_PIN, 50);
 
 void setup() {
   Serial.begin(9600);
-  state = off;
+  state = powering_up;
   pinMode(LED_PIN, OUTPUT);
   pinMode(RPI_POWER_PIN, OUTPUT);
-  pinMode(RPI_ON_PIN, INPUT);
   pinMode(POWER_BUTTON, INPUT_PULLUP);
   digitalWrite(RPI_POWER_PIN, LOW);
   Timer1.initialize(500000);
@@ -26,23 +25,22 @@ void setup() {
 }
 
 void loop() {
-  rpi_on.update();
   power_button.update();
-  Serial.print("rpi on: ");
-  Serial.print(rpi_on.read());
-  Serial.print(" power button: ");
+  Serial.print("power button: ");
   Serial.print(power_button.read());
   Serial.print(" state: ");
   Serial.println(state);
-  if (rpi_on.read() && (state == powering_up || state == off)) {
+  if (state == powering_up && millis() - start_time > 15000) {
     state = on;
-  } else if (!rpi_on.read() && rpi_on.duration() > 10000 && state == powering_down) {
-      state = off;
+  } else if (state == powering_down && millis() - start_time > 15000) {
+    state = off;
   } else if (!power_button.read() && power_button.duration() > 1500 && state == on) {
     state = powering_down;
+    start_time = millis();
     pulse_rpi();
   } else if (!power_button.read() && power_button.duration() > 1500 && state == off) {
     state = powering_up;
+    start_time = millis();
     pulse_rpi();
   }
 }
