@@ -66,7 +66,19 @@ class WebGui(App):
                 tensorflow_model_name)
             self.app = Workflow(self._dataset, self._imageprocessor, self._cam)
             self.app.setup()
+            self.setup_gpio()
             return self.construct_ui()
+
+    def setup_gpio(self):
+        try:
+            pin = 4
+            gpio = importlib.import_module('RPi.GPIO')
+            gpio.setmode(gpio.BCM)
+            gpio.setup(pin, gpio.INPUT)
+            gpio.add_event_detect(pin, gpio.FALLING, callback=self.on_snap_pressed, bouncetime=200)
+        except ImportError as e:
+            self._logger.exception(e)
+            print('raspi gpio module not found, continuing...')
 
     def construct_ui(self):
         self.main_container = gui.VBox()

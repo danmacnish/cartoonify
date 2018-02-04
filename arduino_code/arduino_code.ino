@@ -4,7 +4,7 @@
 
 
 volatile states state;
-const int LED_PIN  = 13;  
+const int LED_PIN  = 8;  
 const int POWER_BUTTON = 2; //low when power button pressed
 const int RPI_POWER_PIN = 12;  //set this high to switch optocoupler and turn rpi on/off
 

@@ -33,17 +33,6 @@ class Workflow(object):
         print('Done')
         if self._cam is not None:
             self._cam.resolution = (640, 480)
-        try:
-            gpio = importlib.import_module('RPi.GPIO')
-            gpio.setmode(gpio.BCM)
-            gpio.setup(4, gpio.OUT)
-            gpio.output(4, True)
-        except ImportError as e:
-            self._logger.exception(e)
-            print('raspi gpio module not found, continuing...')
-
-
-
 
     def capture(self, path):
         if self._cam is not None:
