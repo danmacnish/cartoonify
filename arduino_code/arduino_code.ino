@@ -4,7 +4,6 @@
 
 
 volatile states state;
-const int RPI_ON_PIN = 10;  //low when rpi is on
 const int LED_PIN  = 13;  
 const int POWER_BUTTON = 2; //low when power button pressed
 const int RPI_POWER_PIN = 12;  //set this high to switch optocoupler and turn rpi on/off
@@ -19,7 +18,7 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   pinMode(RPI_POWER_PIN, OUTPUT);
   pinMode(POWER_BUTTON, INPUT_PULLUP);
-  digitalWrite(RPI_POWER_PIN, LOW);
+  digitalWrite(RPI_POWER_PIN, HIGH);
   Timer1.initialize(500000);
   Timer1.attachInterrupt(blinkLED);
 }
@@ -30,9 +29,9 @@ void loop() {
   Serial.print(power_button.read());
   Serial.print(" state: ");
   Serial.println(state);
-  if (state == powering_up && millis() - start_time > 15000) {
+  if (state == powering_up && millis() - start_time > 25000) {
     state = on;
-  } else if (state == powering_down && millis() - start_time > 15000) {
+  } else if (state == powering_down && millis() - start_time > 20000) {
     state = off;
   } else if (!power_button.read() && power_button.duration() > 1500 && state == on) {
     state = powering_down;
@@ -62,9 +61,9 @@ void blinkLED(void)
 }
 
 void pulse_rpi(void) {
-  // pulse the optocoupler to turn the raspi on/off
-  digitalWrite(RPI_POWER_PIN, HIGH);
-  delay(100);
+  // pulse raspi on pin
   digitalWrite(RPI_POWER_PIN, LOW);
+  delay(500);
+  digitalWrite(RPI_POWER_PIN, HIGH);
 }
 

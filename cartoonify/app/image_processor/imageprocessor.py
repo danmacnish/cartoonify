@@ -50,6 +50,8 @@ class ImageProcessor(object):
                 self.download_model(self._download_url, self._model_name + '.tar.gz')
         self.load_model(self._path_to_model)
         self._labels = self.load_labels(self._path_to_labels)
+        # run a detection once, because first model run is always slow
+        self.detect(np.ones((150, 150, 3), dtype=np.uint8))
 
     def download_model(self, url, filename):
         """download a model file from the url and unzip it
