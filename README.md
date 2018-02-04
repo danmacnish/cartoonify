@@ -11,6 +11,7 @@
 - requirements:
     * rasbian stretch image on 16gb SD card (8gb too small)
     * internet access on the raspi
+    * pip + python
     * (optional) raspi camera v2
 - install docker on the raspi `curl -sSL https://get.docker.com | sh`
 - run `raspi-build.sh`. This will download the google quickdraw dataset and tensorflow model,
