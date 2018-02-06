@@ -74,7 +74,7 @@ class WebGui(App):
             pin = 4
             gpio = importlib.import_module('RPi.GPIO')
             gpio.setmode(gpio.BCM)
-            gpio.setup(pin, gpio.INPUT)
+            gpio.setup(pin, gpio.IN, pull_up_down=gpio.PUD_UP)
             gpio.add_event_detect(pin, gpio.FALLING, callback=self.on_snap_pressed, bouncetime=200)
         except ImportError as e:
             self._logger.exception(e)
