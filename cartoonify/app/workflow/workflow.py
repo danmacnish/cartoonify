@@ -41,7 +41,7 @@ class Workflow(object):
         self._path = Path(__file__).parent / '..' / '..' / 'images'
         if not self._path.exists():
             self._path.mkdir()
-        self._count = len(list(self._path.glob('image*.png')))
+        self._count = len(list(self._path.glob('image*.jpg')))
         if self._cam is not None:
             self._cam.resolution = (640, 480)
         self._logger.info('setup finished.')
