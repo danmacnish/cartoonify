@@ -48,8 +48,8 @@ class Workflow(object):
 
         :return:
         """
+        self._logger.info('capturing and processing image.')
         self._gpio.status_pin(True)
-        print('capturing and processing image.')
         self._count += 1
         path = self._path / ('image' + str(self._count) + '.jpg')
         self.capture(path)

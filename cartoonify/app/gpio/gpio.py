@@ -27,7 +27,7 @@ class Gpio:
         self.gpio.setup(self._capture_pin, self.gpio.IN, pull_up_down=self.gpio.PUD_UP)
         self.gpio.add_event_detect(self._capture_pin, self.gpio.FALLING, callback=capture_callback, bouncetime=200)
         self.gpio.setup(self._status_pin, self.gpio.OUT)
-        self.gpio.output(self._status_pin, False)
+        self.status_pin(False)
 
     def status_pin(self, state):
         """set status pin high/low
