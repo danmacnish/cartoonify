@@ -51,17 +51,21 @@ class Workflow(object):
 
         :return:
         """
-        self._logger.info('capturing and processing image.')
-        self.gpio.set_status_pin(True)
-        self._count += 1
-        path = self._path / ('image' + str(self._count) + '.jpg')
-        self.capture(path)
-        self.process(path)
-        annotated, cartoon = self.save_results()
-        self.gpio.set_status_pin(False)
+        try:
+            self._logger.info('capturing and processing image.')
+            self.gpio.set_status_pin(True)
+            self._count += 1
+            path = self._path / ('image' + str(self._count) + '.jpg')
+            self.capture(path)
+            self.process(path)
+            annotated, cartoon = self.save_results()
+            self.gpio.set_status_pin(False)
+        except Exception as e:
+            self._logger.exception(e)
 
     def capture(self, path):
         if self._cam is not None:
+            self._logger.info('capturing image')
             self._cam.capture(str(path))
         else:
             raise AttributeError("app wasn't started with --camera flag, so you can't use the camera to capture images.")
@@ -101,6 +105,7 @@ class Workflow(object):
 
         :return tuple: (path to annotated image, path to cartoon image)
         """
+        self._logger.info('saving results...')
         annotated_path = self._image_path
         cartoon_path = self._image_path.with_name('cartoon' + str(self._count) + '.png')
         labels_path = self._image_path.with_name('labels' + str(self._count) + '.txt')
