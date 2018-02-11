@@ -17,7 +17,7 @@ class Workflow(object):
         self._dataset = dataset
         self._image_processor = imageprocessor
         self._sketcher = None
-        self._gpio = Gpio()
+        self.gpio = Gpio()
         self._cam = camera
         self._logger = logging.getLogger(self.__class__.__name__)
         self._image = None
@@ -36,7 +36,7 @@ class Workflow(object):
         self._logger.info('Done')
         if setup_gpio:
             self._logger.info('setting up GPIO...')
-            self._gpio.setup(capture_callback=self.run)
+            self.gpio.setup(capture_callback=self.run)
             self._logger.info('done')
         self._path = Path(__file__).parent / '..' / '..' / 'images'
         if not self._path.exists():
@@ -52,13 +52,13 @@ class Workflow(object):
         :return:
         """
         self._logger.info('capturing and processing image.')
-        self._gpio.status_pin(True)
+        self.gpio.set_status_pin(True)
         self._count += 1
         path = self._path / ('image' + str(self._count) + '.jpg')
         self.capture(path)
         self.process(path)
         annotated, cartoon = self.save_results()
-        self._gpio.status_pin(False)
+        self.gpio.set_status_pin(False)
 
     def capture(self, path):
         if self._cam is not None:
@@ -125,7 +125,7 @@ class Workflow(object):
 
     def close(self):
         self._image_processor.close()
-        self._gpio.close()
+        self.gpio.close()
 
     @property
     def image_labels(self):

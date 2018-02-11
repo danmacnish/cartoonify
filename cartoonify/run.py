@@ -12,6 +12,7 @@ from app.gui import WebGui
 from remi import start
 import importlib
 import sys
+import time
 
 
 root = Path(__file__).parent
@@ -55,7 +56,9 @@ def run(camera, gui, raspi_headless):
         while True:
             if raspi_headless:
                 while True:
-                    pass
+                    if app.gpio.get_capture_pin():
+                        app.run()
+                        time.sleep(0.02)
             if camera:
                 if click.confirm('would you like to capture an image?'):
                     path = root / 'images' / 'image.jpg'

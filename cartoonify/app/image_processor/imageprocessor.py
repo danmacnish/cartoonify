@@ -68,7 +68,6 @@ class ImageProcessor(object):
     def load_model(self, path):
         """load saved model from protobuf file
         """
-        self._logger.info('loading tensorflow model')
         if not Path(path).exists():
             raise FileNotFoundError('model file missing: {}'.format(str(path)))
         with tf.gfile.GFile(path, 'rb') as fid:

@@ -27,9 +27,9 @@ class Gpio:
         self.gpio.setup(self._capture_pin, self.gpio.IN, pull_up_down=self.gpio.PUD_UP)
         self.gpio.add_event_detect(self._capture_pin, self.gpio.FALLING, callback=capture_callback, bouncetime=200)
         self.gpio.setup(self._status_pin, self.gpio.OUT)
-        self.status_pin(False)
+        self.set_status_pin(False)
 
-    def status_pin(self, state):
+    def set_status_pin(self, state):
         """set status pin high/low
 
         :param bool state:
@@ -37,6 +37,14 @@ class Gpio:
         """
         if self.available():
             self.gpio.output(self._status_pin, state)
+
+    def get_capture_pin(self):
+        """get state of capture pin
+
+        :return:
+        """
+        if self.available():
+            return self.gpio.input(self._capture_pin) == self.gpio.LOW
 
     def available(self):
         """return true if gpio package is available
