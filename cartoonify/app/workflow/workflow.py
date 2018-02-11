@@ -35,13 +35,16 @@ class Workflow(object):
         self._image_processor.setup()
         self._logger.info('Done')
         if setup_gpio:
+            self._logger.info('setting up GPIO...')
             self._gpio.setup(capture_callback=self.run)
+            self._logger.info('done')
         self._path = Path(__file__).parent / '..' / '..' / 'images'
         if not self._path.exists():
             self._path.mkdir()
         self._count = len(list(self._path.glob('image*.png')))
         if self._cam is not None:
             self._cam.resolution = (640, 480)
+        self._logger.info('setup finished.')
 
     def run(self):
         """capture an image, process it, and save to file
