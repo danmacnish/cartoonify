@@ -31,10 +31,10 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, fil
 
 
 @click.command()
-@click.option('--path', default=None, type=click.Path(), help='directory to save results to')
 @click.option('--camera', is_flag=True, help='use this flag to enable captures from the raspberry pi camera')
 @click.option('--gui', is_flag=True, help='enables gui')
-def run(path, camera, gui):
+@click.option('--raspi-headless', is_flag=True, help='run on raspi with camera and GPIO but without gui')
+def run(camera, gui, raspi_headless):
     if gui:
         print('starting gui...')
         start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, host_name='raspberrypi.local', start_browser=False)
@@ -53,6 +53,9 @@ def run(path, camera, gui):
             logging.exception(e)
             sys.exit()
         while True:
+            if raspi_headless:
+                while True:
+                    pass
             if camera:
                 if click.confirm('would you like to capture an image?'):
                     path = root / 'images' / 'image.jpg'

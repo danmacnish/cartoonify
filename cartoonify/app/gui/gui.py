@@ -65,11 +65,16 @@ class WebGui(App):
                 str(root / 'app' / 'object_detection' / 'data' / 'mscoco_label_map.pbtxt'),
                 tensorflow_model_name)
             self.app = Workflow(self._dataset, self._imageprocessor, self._cam)
-            self.app.setup()
+            self.app.setup(setup_gpio=False)
             self.setup_gpio()
             return self.construct_ui()
 
     def setup_gpio(self):
+        """configure GPIO
+        trigger image capture and processing when pin 4 goes low
+
+        :return:
+        """
         try:
             pin = 4
             gpio = importlib.import_module('RPi.GPIO')
