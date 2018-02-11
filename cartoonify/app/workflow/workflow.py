@@ -26,14 +26,14 @@ class Workflow(object):
         self._count = 0
 
     def setup(self, setup_gpio=True):
-        print('loading cartoon dataset...')
+        self._logger.info('loading cartoon dataset...')
         self._dataset.setup()
-        print('Done')
+        self._logger.info('Done')
         self._sketcher = SketchGizeh()
         self._sketcher.setup()
-        print('loading tensorflow model...')
+        self._logger.info('loading tensorflow model...')
         self._image_processor.setup()
-        print('Done')
+        self._logger.info('Done')
         if setup_gpio:
             self._gpio.setup(capture_callback=self.run)
         self._path = Path(__file__).parent / '..' / '..' / 'images'
@@ -73,7 +73,7 @@ class Workflow(object):
         :param image_path: image to process, if camera is disabled
         :return:
         """
-        print('processing image...')
+        self._logger.info('processing image...')
         try:
             self._image_path = Path(image_path)
             img = self._image_processor.load_image_into_numpy_array(image_path)
@@ -91,7 +91,6 @@ class Workflow(object):
                                    self._dataset,
                                    threshold=threshold)
         except ValueError as e:
-            print(repr(e))
             self._logger.exception(e)
 
     def save_results(self):
