@@ -109,7 +109,7 @@ class Workflow(object):
         annotated_path = self._image_path
         cartoon_path = self._image_path.with_name('cartoon' + str(self._count) + '.png')
         labels_path = self._image_path.with_name('labels' + str(self._count) + '.txt')
-        with open(labels_path, 'w') as f:
+        with open(str(labels_path), 'w') as f:
             f.writelines(self.image_labels)
         # self._save_3d_numpy_array_as_png(self._annotated_image, annotated_path)
         self._sketcher.save_png(cartoon_path)
