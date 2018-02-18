@@ -23,7 +23,7 @@ class Workflow(object):
         self._image = None
         self._annotated_image = None
         self._image_labels = []
-        self._count = 0
+        self.count = 0
 
     def setup(self, setup_gpio=True):
         self._logger.info('loading cartoon dataset...')
@@ -41,7 +41,7 @@ class Workflow(object):
         self._path = Path(__file__).parent / '..' / '..' / 'images'
         if not self._path.exists():
             self._path.mkdir()
-        self._count = len(list(self._path.glob('image*.jpg')))
+        self.count = len(list(self._path.glob('image*.jpg')))
         if self._cam is not None:
             self._cam.resolution = (640, 480)
         self._logger.info('setup finished.')
@@ -54,8 +54,8 @@ class Workflow(object):
         try:
             self._logger.info('capturing and processing image.')
             self.gpio.set_status_pin(True)
-            self._count += 1
-            path = self._path / ('image' + str(self._count) + '.jpg')
+            self.count += 1
+            path = self._path / ('image' + str(self.count) + '.jpg')
             self.capture(path)
             self.process(path)
             annotated, cartoon = self.save_results()
@@ -107,8 +107,8 @@ class Workflow(object):
         """
         self._logger.info('saving results...')
         annotated_path = self._image_path
-        cartoon_path = self._image_path.with_name('cartoon' + str(self._count) + '.png')
-        labels_path = self._image_path.with_name('labels' + str(self._count) + '.txt')
+        cartoon_path = self._image_path.with_name('cartoon' + str(self.count) + '.png')
+        labels_path = self._image_path.with_name('labels' + str(self.count) + '.txt')
         with open(str(labels_path), 'w') as f:
             f.writelines(self.image_labels)
         # self._save_3d_numpy_array_as_png(self._annotated_image, annotated_path)

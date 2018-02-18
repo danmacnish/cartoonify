@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 cd /cartoonify
 sudo pip install -e .
-cartoonify --raspi-headless
+cartoonify --raspi-headless --raspi-gpio

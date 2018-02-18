@@ -35,7 +35,9 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, fil
 @click.option('--camera', is_flag=True, help='use this flag to enable captures from the raspberry pi camera')
 @click.option('--gui', is_flag=True, help='enables gui')
 @click.option('--raspi-headless', is_flag=True, help='run on raspi with camera and GPIO but without gui')
-def run(camera, gui, raspi_headless):
+@click.option('--batch-process', is_flag=True, help='process all jpg images in a directory')
+@click.option('--raspi-gpio', is_flag=True, help='use gpio to trigger capture & process')
+def run(camera, gui, raspi_headless, batch_process, raspi_gpio):
     if gui:
         print('starting gui...')
         start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, host_name='raspberrypi.local', start_browser=False)
@@ -47,7 +49,7 @@ def run(camera, gui, raspi_headless):
             else:
                 cam = None
             app = Workflow(dataset, imageprocessor, cam)
-            app.setup()
+            app.setup(setup_gpio=raspi_gpio)
         except ImportError as e:
             print('picamera module missing, please install using:\n     sudo apt-get update \n'
                   '     sudo apt-get install python-picamera')
@@ -68,6 +70,16 @@ def run(camera, gui, raspi_headless):
                 else:
                     app.close()
                     break
+            if batch_process:
+                path = Path(input("enter the path to the directory to process:"))
+                for file in path.glob('*.jpg'):
+                    print('processing {}'.format(str(file)))
+                    app.process(str(file))
+                    app.save_results()
+                    app.count += 1
+                print('finished processing files, closing app.')
+                app.close()
+                sys.exit()
             else:
                 path = Path(input("enter the filepath of the image to process:"))
             if str(path) != '.' or 'exit':
