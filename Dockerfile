@@ -37,9 +37,9 @@ RUN sudo pip --no-cache-dir install -r raspi-requirements.txt --no-deps
 RUN git clone git://git.drogon.net/wiringPi && cd wiringPi && ./build
 RUN sudo pip install wiringpi2
 
-RUN cd ~/ && git clone https://github.com/adafruit/zj-58 && cd zj-58 && make && sudo ./install
-RUN sudo lpadmin -p ZJ-58 -E -v serial:/dev/ttyUSB0?baud=9600 -m zjiang/ZJ-58.ppd
-RUN sudo lpoptions -d ZJ-58
+RUN cd ~/ && git clone https://github.com/adafruit/zj-58 && cd zj-58 && make && sudo ./install \
+    && sudo lpadmin -p ZJ-58 -E -v serial:/dev/ttyUSB0?baud=9600 -m zjiang/ZJ-58.ppd \
+    && sudo lpoptions -d ZJ-58
 
 ADD raspi_install/tensorflow-1.4.0-cp27-none-any.whl .
 
