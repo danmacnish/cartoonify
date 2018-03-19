@@ -5,6 +5,7 @@ from pathlib import Path
 import logging
 from app.sketch import SketchGizeh
 from app.gpio import Gpio
+import subprocess
 
 
 class Workflow(object):
@@ -46,8 +47,8 @@ class Workflow(object):
             self._cam.resolution = (640, 480)
         self._logger.info('setup finished.')
 
-    def run(self):
-        """capture an image, process it, and save to file
+    def run(self, print=False):
+        """capture an image, process it, save to file, and optionally print it
 
         :return:
         """
@@ -59,6 +60,8 @@ class Workflow(object):
             self.capture(path)
             self.process(path)
             annotated, cartoon = self.save_results()
+            if print:
+                subprocess.run(['lp', '-c', str(cartoon)])
             self.gpio.set_status_pin(False)
         except Exception as e:
             self._logger.exception(e)
