@@ -61,7 +61,7 @@ class Workflow(object):
             self.process(path)
             annotated, cartoon = self.save_results()
             if print_cartoon:
-                subprocess.run(['lp', '-c', str(cartoon)])
+                subprocess.call(['lp', '-c', str(cartoon)])
             self.gpio.set_status_pin(False)
         except Exception as e:
             self._logger.exception(e)
