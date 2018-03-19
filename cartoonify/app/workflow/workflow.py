@@ -47,7 +47,7 @@ class Workflow(object):
             self._cam.resolution = (640, 480)
         self._logger.info('setup finished.')
 
-    def run(self, print=False):
+    def run(self, print_cartoon=False):
         """capture an image, process it, save to file, and optionally print it
 
         :return:
@@ -60,7 +60,7 @@ class Workflow(object):
             self.capture(path)
             self.process(path)
             annotated, cartoon = self.save_results()
-            if print:
+            if print_cartoon:
                 subprocess.run(['lp', '-c', str(cartoon)])
             self.gpio.set_status_pin(False)
         except Exception as e:
