@@ -74,9 +74,10 @@ class Workflow(object):
             raise AttributeError("app wasn't started with --camera flag, so you can't use the camera to capture images.")
         return path
 
-    def process(self, image_path, threshold=0.3):
+    def process(self, image_path, threshold=0.3, top_x=None):
         """processes an image. If no path supplied, then capture from camera
 
+        :param top_x: If not none, only the top X results are drawn (overrides threshold)
         :param float threshold: threshold for object detection (0.0 to 1.0)
         :param path: directory to save results to
         :param bool camera_enabled: whether to use raspi camera or not
@@ -94,6 +95,9 @@ class Workflow(object):
             self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=threshold)
             self._sketcher = SketchGizeh()
             self._sketcher.setup()
+            if top_x:
+                sorted_scores = sorted(scores)
+                threshold = sorted_scores[-6]
             self._image_labels = self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
                                    np.squeeze(classes).astype(np.int32),
                                    np.squeeze(scores),
