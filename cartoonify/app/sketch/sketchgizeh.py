@@ -22,7 +22,6 @@ class SketchGizeh(object):
             for val in pos:
                 if val < 0 or val > 1 or not isinstance(val, float):
                     raise ValueError('position coordinates should be float between (0,1)')
-            print(pos, scale)
             scale *= np.mean([self._width, self._height]) / 255
             pos[0] = pos[0] * self._width - (scale * (255 / 2))
             pos[1] = pos[1] * self._height - (scale * (255 / 2))
@@ -62,7 +61,7 @@ class SketchGizeh(object):
         """
         drawn_objects = []  # list of the objects drawn
         for i in range(boxes.shape[0]):
-            if scores is None or scores[i] > threshold:
+            if scores is None or scores[i] >= threshold:
                 box = tuple(boxes[i].tolist())
                 if classes[i] in labels.keys():
                     class_name = labels[classes[i]]['name']

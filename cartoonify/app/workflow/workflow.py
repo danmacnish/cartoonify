@@ -96,15 +96,15 @@ class Workflow(object):
             self._sketcher = SketchGizeh()
             self._sketcher.setup()
             if top_x:
-                sorted_scores = sorted(scores)
-                threshold = sorted_scores[-6]
+                sorted_scores = sorted(scores.flatten())
+                threshold = sorted_scores[-min([top_x, scores.size])]
             self._image_labels = self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
                                    np.squeeze(classes).astype(np.int32),
                                    np.squeeze(scores),
                                    self._image_processor.labels,
                                    self._dataset,
                                    threshold=threshold)
-        except ValueError as e:
+        except (ValueError, FileNotFoundError) as e:
             self._logger.exception(e)
 
     def save_results(self):
