@@ -94,7 +94,6 @@ class Workflow(object):
             # annotate the original image
             self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=threshold)
             self._sketcher = SketchGizeh()
-            print(img.shape)
             self._sketcher.setup(img.shape[1], img.shape[0])
             if top_x:
                 sorted_scores = sorted(scores.flatten())
