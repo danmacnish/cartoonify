@@ -58,7 +58,7 @@ class Workflow(object):
             self.count += 1
             path = self._path / ('image' + str(self.count) + '.jpg')
             self.capture(path)
-            self.process(path)
+            self.process(path, top_x=4)
             annotated, cartoon = self.save_results()
             if print_cartoon:
                 subprocess.call(['lp', '-c', str(cartoon)])
@@ -94,7 +94,8 @@ class Workflow(object):
             # annotate the original image
             self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=threshold)
             self._sketcher = SketchGizeh()
-            self._sketcher.setup()
+            print(img.shape)
+            self._sketcher.setup(img.shape[1], img.shape[0])
             if top_x:
                 sorted_scores = sorted(scores.flatten())
                 threshold = sorted_scores[-min([top_x, scores.size])]

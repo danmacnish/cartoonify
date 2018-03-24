@@ -14,7 +14,7 @@ class SketchGizeh(object):
         self._height = height
         self._surface = gz.Surface(width=width, height=height, bg_color=bg_color)
 
-    def draw(self, strokes, scale=0.1, pos=[0, 0], stroke_width=5, color=[0, 0, 0]):
+    def draw(self, strokes, scale=1.0, pos=[0, 0], stroke_width=3, color=[0, 0, 0]):
         """iterate through a list of strokes, drawing them on the canvas
         pos is normalised coprdinates in range (0,1)
         """
@@ -31,12 +31,12 @@ class SketchGizeh(object):
         except ValueError as e:
             print(repr(e))
 
-    def draw_person(self, dataset, scale=1.0, position=[0, 0]):
+    def draw_person(self, dataset, scale=1.0, position=[0, 0], stroke_width=3):
         body_parts = {'face': [0, 0], 't-shirt': [0, 250], 'pants': [0, 480]}  # dict of parts + translation
         gz_body_parts = []
         for name, pos in body_parts.items():
             strokes = dataset.get_drawing(name, random.randint(1, 1000))
-            strokes_gz = self._convert_quickdraw_strokes_to_gizeh_group(strokes, stroke_width=3 / scale)
+            strokes_gz = self._convert_quickdraw_strokes_to_gizeh_group(strokes, stroke_width=stroke_width / scale)
             strokes_gz = strokes_gz.translate(pos)
             gz_body_parts.append(strokes_gz)
         scale *= np.mean([self._width, self._height]) / 750
