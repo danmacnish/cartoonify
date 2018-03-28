@@ -59,7 +59,7 @@ def run(camera, gui, raspi_headless, batch_process, raspi_gpio):
             if raspi_headless:
                 while True:
                     if app.gpio.get_capture_pin():
-                        app.run(print_cartoon=True)
+                        app.run(print_cartoon=False)
                         time.sleep(0.02)
             if camera:
                 if click.confirm('would you like to capture an image?'):
