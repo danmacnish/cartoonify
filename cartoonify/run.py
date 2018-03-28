@@ -46,6 +46,7 @@ def run(camera, gui, raspi_headless, batch_process, raspi_gpio):
             if camera or raspi_headless:
                 picam = importlib.import_module('picamera')
                 cam = picam.PiCamera()
+                cam.rotation=-90
             else:
                 cam = None
             app = Workflow(dataset, imageprocessor, cam)
