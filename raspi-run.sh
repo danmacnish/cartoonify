@@ -4,7 +4,7 @@ sudo docker run -d \
  --restart unless-stopped \
  --device /dev/ttyAMA0:/dev/ttyAMA0 \
  --device /dev/mem:/dev/mem \
- --device=/dev/ttyUSB0 \
+ --device=/dev/serial0 \
  --privileged \
  -p 8081:8081 \
  -p 8082:8082 \
