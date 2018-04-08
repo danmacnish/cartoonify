@@ -8,4 +8,5 @@ sudo docker run -d \
  --privileged \
  -p 8081:8081 \
  -p 8082:8082 \
- -w /cartoonify
+ -w /cartoonify \
+ cartoonify
