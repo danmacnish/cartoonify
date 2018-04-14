@@ -57,7 +57,7 @@ def run(camera, gui, raspi_headless, batch_process, raspi_gpio):
             logging.exception(e)
             sys.exit()
         while True:
-            if raspi_headless
+            if raspi_headless:
                 while True:
                     if app.gpio.get_capture_pin():
                         print('capture button pressed.')
