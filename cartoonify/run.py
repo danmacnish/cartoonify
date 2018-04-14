@@ -57,12 +57,10 @@ def run(camera, gui, raspi_headless, batch_process, raspi_gpio):
             logging.exception(e)
             sys.exit()
         while True:
-            if raspi_headless:
+            if raspi_headless
                 while True:
-                    if app.gpio.get_capture_pin():
-                        print('capture button pressed.')
-                        app.run(print_cartoon=True)
-                        time.sleep(0.02)
+                    # gpio is configured with a callback on capture pin, so we enter infinite loop
+                    pass
             if camera:
                 if click.confirm('would you like to capture an image?'):
                     path = root / 'images' / 'image.jpg'
