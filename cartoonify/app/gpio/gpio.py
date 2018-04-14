@@ -25,6 +25,7 @@ class Gpio:
         """
         self.gpio.setmode(self.gpio.BCM)
         self.gpio.setup(self._capture_pin, self.gpio.IN, pull_up_down=self.gpio.PUD_UP)
+        # commented out, because we are polling the capture button
         # self.gpio.add_event_detect(self._capture_pin, self.gpio.FALLING, callback=capture_callback, bouncetime=200)
         self.gpio.setup(self._status_pin, self.gpio.OUT)
         self.set_status_pin(False)
