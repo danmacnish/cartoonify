@@ -125,7 +125,7 @@ class Workflow(object):
         if debug:
             scores_path = self._image_path.with_name('scores' + str(self.count) + '.txt')
             with open(str(scores_path), 'w') as f:
-                f.writelines(self._scores.flatten())
+                f.writelines(map(str, self._scores.flatten()))
         # self._save_3d_numpy_array_as_png(self._annotated_image, annotated_path)
         self._sketcher.save_png(cartoon_path)
         return annotated_path, cartoon_path
