@@ -6,6 +6,7 @@ import logging
 from app.sketch import SketchGizeh
 from app.gpio import Gpio
 import subprocess
+from csv import writer
 
 
 class Workflow(object):
@@ -124,8 +125,9 @@ class Workflow(object):
             f.writelines(self.image_labels)
         if debug:
             scores_path = self._image_path.with_name('scores' + str(self.count) + '.txt')
-            with open(str(scores_path), 'w') as f:
-                f.writelines(map(str, self._scores.flatten()))
+            with open(str(scores_path), 'w', newline='') as f:
+                fcsv = writer(f)
+                fcsv.writerow(map(str, self._scores.flatten()))
         # self._save_3d_numpy_array_as_png(self._annotated_image, annotated_path)
         self._sketcher.save_png(cartoon_path)
         return annotated_path, cartoon_path
