@@ -24,6 +24,9 @@ class Workflow(object):
         self._image = None
         self._annotated_image = None
         self._image_labels = []
+        self._boxes = None
+        self._classes = None
+        self._scores = None
         self.count = 0
 
     def setup(self, setup_gpio=True):
@@ -58,7 +61,7 @@ class Workflow(object):
             self.count += 1
             path = self._path / ('image' + str(self.count) + '.jpg')
             self.capture(path)
-            self.process(path, top_x=4)
+            self.process(path, top_x=3)
             annotated, cartoon = self.save_results()
             if print_cartoon:
                 subprocess.call(['lp', '-c', str(cartoon)])
@@ -90,25 +93,26 @@ class Workflow(object):
             img = self._image_processor.load_image_into_numpy_array(image_path)
             # load a scaled version of the image into memory
             img_scaled = self._image_processor.load_image_into_numpy_array(image_path, scale=300 / max(img.shape))
-            boxes, scores, classes, num = self._image_processor.detect(img_scaled)
+            self._boxes, self._scores, self._classes, num = self._image_processor.detect(img_scaled)
             # annotate the original image
-            self._annotated_image = self._image_processor.annotate_image(img, boxes, classes, scores, threshold=threshold)
+            self._annotated_image = self._image_processor.annotate_image(img, self._boxes, self._classes, self._scores, threshold=threshold)
             self._sketcher = SketchGizeh()
             self._sketcher.setup(img.shape[1], img.shape[0])
             if top_x:
-                sorted_scores = sorted(scores.flatten())
-                threshold = sorted_scores[-min([top_x, scores.size])]
-            self._image_labels = self._sketcher.draw_object_recognition_results(np.squeeze(boxes),
-                                   np.squeeze(classes).astype(np.int32),
-                                   np.squeeze(scores),
+                sorted_scores = sorted(self._scores.flatten())
+                threshold = sorted_scores[-min([top_x, self._scores.size])]
+            self._image_labels = self._sketcher.draw_object_recognition_results(np.squeeze(self._boxes),
+                                   np.squeeze(self._classes).astype(np.int32),
+                                   np.squeeze(self._scores),
                                    self._image_processor.labels,
                                    self._dataset,
                                    threshold=threshold)
         except (ValueError, FileNotFoundError) as e:
             self._logger.exception(e)
 
-    def save_results(self):
+    def save_results(self, debug=False):
         """save result images as png and list of detected objects as txt
+        if debug is true, save a list of all detected objects and their scores
 
         :return tuple: (path to annotated image, path to cartoon image)
         """
@@ -118,6 +122,10 @@ class Workflow(object):
         labels_path = self._image_path.with_name('labels' + str(self.count) + '.txt')
         with open(str(labels_path), 'w') as f:
             f.writelines(self.image_labels)
+        if debug:
+            scores_path = self._image_path.with_name('scores' + str(self.count) + '.txt')
+            with open(str(scores_path), 'w') as f:
+                f.writelines(self._scores.flatten())
         # self._save_3d_numpy_array_as_png(self._annotated_image, annotated_path)
         self._sketcher.save_png(cartoon_path)
         return annotated_path, cartoon_path
