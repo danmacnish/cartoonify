@@ -36,7 +36,7 @@ while the raspi is processing an image. If the light stays on, something has gon
     * a button, led, 220 ohm resistor and breadboard
     * (optional) Thermal printer to suit a raspi 3
 
-- install docker on the raspi `curl -sSL https://get.docker.com | sh`
+- install docker on the raspi by running: `curl -sSL https://get.docker.com | sh`
 - set up and enable the raspi camera through `raspi-config`
 - clone the source code from this repo
 - run `./raspi-build.sh`. This will download the google quickdraw dataset and tensorflow model,
@@ -49,5 +49,5 @@ then build the required docker image.
 - Check the log files in the `cartoonify/logs` folder for any error messages.
 - The most common issue when running on a raspi is not having the camera plugged in correctly.
 - If nothing is printing, check the logs then check whether images are being saved to `cartoonify/images`.
-- Check that you can manually print from the command line.
+- Check that you can manually print something from the thermal printer from the command line.
 
