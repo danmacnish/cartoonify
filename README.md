@@ -4,6 +4,8 @@ _Draw This_ is a polaroid camera that draws cartoons.
 You point, and shoot - and out pops a cartoon; the camera's best interpretation of what it saw.
 The camera is a mash up of a neural network for object recognition, the google quickdraw dataset, a thermal printer, and a raspberry pi.
 
+![photo](../master/photos/raspi-camera-cartoons.jpg)
+
 The software can run both on a desktop environment such as a laptop, or an embedded environment on a raspberry pi.
 
 ### Desktop installation
