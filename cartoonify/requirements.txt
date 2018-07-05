@@ -41,7 +41,6 @@ Keras==2.0.9
 lxml==4.1.1
 Markdown==2.6.9
 MarkupSafe==1.0
-matplotlib==2.1.0
 mistune==0.8.1
 mock==2.0.0
 nbconvert==5.3.1
