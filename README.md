@@ -4,8 +4,6 @@
 You point, and shoot - and out pops a cartoon; the camera's best interpretation of what it saw.
 The camera is a mash up of a neural network for object recognition, the google quickdraw dataset, a thermal printer, and a raspberry pi.
 
-More information [can be found here](http://danmacnish.com/2018/07/01/draw-this/), on my website.
-
 ![photo](../master/photos/raspi-camera-cartoons.jpg)
 
 The software can run both on a desktop environment (OSX, Linux) such as a laptop, or an embedded environment on a raspberry pi.
