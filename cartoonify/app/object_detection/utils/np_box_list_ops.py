@@ -21,6 +21,7 @@ Example box operations that are supported:
 """
 
 import numpy as np
+from six import xrange
 
 from app.object_detection.utils import np_box_list
 from app.object_detection.utils import np_box_ops

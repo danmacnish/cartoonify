@@ -19,6 +19,7 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
+from six import xrange
 
 from app.object_detection.core import standard_fields
 from app.object_detection.utils import dataset_util
