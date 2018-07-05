@@ -6,9 +6,9 @@ The camera is a mash up of a neural network for object recognition, the google q
 
 ![photo](../master/photos/raspi-camera-cartoons.jpg)
 
-The software can run both on a desktop environment such as a laptop, or an embedded environment on a raspberry pi.
+The software can run both on a desktop environment (OSX, Linux) such as a laptop, or an embedded environment on a raspberry pi.
 
-### Desktop installation
+### Desktop installation (only tested on OSX and linux)
 
 - Requirements:
     * Python 2.7
@@ -36,7 +36,8 @@ while the raspi is processing an image. If the light stays on, something has gon
     * pip + python
     * raspi camera v2
     * a button, led, 220 ohm resistor and breadboard
-    * (optional) Thermal printer to suit a raspi 3
+    * (optional) Thermal printer to suit a raspi 3. I used [this printer here](https://www.adafruit.com/product/2751).
+    Note you will need to use the printer TTL serial interface as per the wiring diagram above, rather than USB.
 
 - install docker on the raspi by running: `curl -sSL https://get.docker.com | sh`
 - set up and enable the raspi camera through `raspi-config`
