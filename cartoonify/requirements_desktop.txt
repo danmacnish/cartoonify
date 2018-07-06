@@ -24,7 +24,6 @@ pyparsing==2.2.0
 pypng==0.0.18
 python-dateutil==2.6.1
 pytz==2017.3
-remi==0.1
 requests==2.18.4
 six==1.11.0
 urllib3==1.22
