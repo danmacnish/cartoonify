@@ -12,18 +12,21 @@ The software can run both on a desktop environment (OSX, Linux) such as a laptop
 
 - Requirements:
     * Python 2.7
-- install dependencies using `pip install -r requirements.txt` from the `cartoonify` subdirectory.
-- install app using `pip install .` from within the `cartoonify` directory
-- run app from command line using `cartoonify`
-- you will be asked if you want to download the cartoon dataset and tensorflow model. Select yes.
+- install dependencies using `pip install -r requirements_desktop.txt` from the `cartoonify` subdirectory.
+- run app from command line using `python run.py`
+- you will be asked if you want to download the cartoon dataset (~5GB) and tensorflow model (~100MB). Select yes.
 - close the app using cntrl-C once the downloads have finished.
-- start the app again using `cartoonify --gui`
+- start the app again using `cartoonify`.
+- You will be prompted to enter the filepath to an image for processing. Enter the absolute filepath surrounded by double quotes.
 
 ### Raspberry pi wiring
 
 The following wiring diagram will get you started with a shutter button and a status LED.
 If the software is working correctly, the status LED should light up for 2-3 seconds when the shutter is pressed
 while the raspi is processing an image. If the light stays on, something has gone wrong (most likely the camera is unplugged).
+
+__IMPORTANT NOTE__ the diagram below shows AA cells, however this is not correct. You must use eneloop cells to power the camera - these cells
+deliver 1.2V each, as well as enough current to drive the raspi and thermal printer.
 
 ![Wiring diagram](../master/schematics/cartoon_camera_schematic_bb.png)
 
