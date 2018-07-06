@@ -19,7 +19,7 @@ setup(
 
     #
     # license="LICENSE.txt",
-    description="Useful towel-related stuff.",
+    description="Python package for turning a photo into a cartoon.",
 
     # long_description=open("README.txt").read(),
     # todo add dependent packages
