@@ -25,7 +25,7 @@ class DrawingDataset(object):
         try:
             with jsonlines.open(self._category_mapping_filepath, mode='r') as reader:
                 self._category_mapping = reader.read()
-        except FileNotFoundError as e:
+        except IOError as e:
             self._logger.exception(e)
             print('label_mapping.jsonl not found')
             raise e

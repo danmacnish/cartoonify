@@ -35,7 +35,7 @@ def download_drawing_dataset():
             for f in missing_files:
                 print(f)
             download_recurse(quickdraw_dataset_url, path, missing_files)
-    except FileNotFoundError as e:
+    except IOError as e:
         print('label_mapping.jsonl not found')
 
 

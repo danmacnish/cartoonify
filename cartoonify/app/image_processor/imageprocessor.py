@@ -69,7 +69,7 @@ class ImageProcessor(object):
         """load saved model from protobuf file
         """
         if not Path(path).exists():
-            raise FileNotFoundError('model file missing: {}'.format(str(path)))
+            raise IOError('model file missing: {}'.format(str(path)))
         with tf.gfile.GFile(path, 'rb') as fid:
             graph_def = tf.GraphDef()
             graph_def.ParseFromString(fid.read())

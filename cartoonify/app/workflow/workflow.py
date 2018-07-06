@@ -108,7 +108,7 @@ class Workflow(object):
                                    self._image_processor.labels,
                                    self._dataset,
                                    threshold=threshold)
-        except (ValueError, FileNotFoundError) as e:
+        except (ValueError, IOError) as e:
             self._logger.exception(e)
 
     def save_results(self, debug=False):
