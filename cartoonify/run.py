@@ -40,7 +40,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, fil
 def run(camera, gui, raspi_headless, batch_process, raspi_gpio):
     if gui:
         print('starting gui...')
-        start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, host_name='raspberrypi.local', start_browser=False)
+        start(WebGui, address='0.0.0.0', websocket_port=8082, port=8081, host_name='raspberrypi.local', start_browser=True)
     else:
         try:
             if camera or raspi_headless:
