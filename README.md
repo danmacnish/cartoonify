@@ -19,7 +19,7 @@ The software can run both on a desktop environment (OSX, Linux) such as a laptop
 - start the app again using `cartoonify`.
 - You will be prompted to enter the filepath to an image for processing. Enter the absolute filepath surrounded by double quotes.
 
-*Unfortunately python 2.7 was required because the correct python 3 wheels were not available for both the pi and desktop.
+*Unfortunately python 2.7 is required because the correct python 3 wheels are not available for both the pi and desktop.
 
 ### Raspberry pi wiring
 
