@@ -13,9 +13,9 @@ The software can run both on a desktop environment (OSX, Linux) such as a laptop
 - Requirements:
     * Python 2.7*
 - install dependencies using `pip install -r requirements_desktop.txt` from the `cartoonify` subdirectory.
-- run app from command line using `python run.py`
-- you will be asked if you want to download the cartoon dataset (~5GB) and tensorflow model (~100MB). Select yes.
-- close the app using cntrl-C once the downloads have finished.
+- run app from command line using `python run.py`.
+- Select 'yes' when asked to download the cartoon dataset (~5GB) and tensorflow model (~100MB).
+- close the app using ctrl-C once the downloads have finished.
 - start the app again using `cartoonify`.
 - You will be prompted to enter the filepath to an image for processing. Enter the absolute filepath surrounded by double quotes.
 
