@@ -4,9 +4,11 @@
 You point, and shoot - and out pops a cartoon; the camera's best interpretation of what it saw.
 The camera is a mash up of a neural network for object recognition, the google quickdraw dataset, a thermal printer, and a raspberry pi.
 
+If you'd like to try it out for yourself, [the good folks at Kapwing have created an online version!](https://www.kapwing.com/cartoonify) 
+
 ![photo](../master/photos/raspi-camera-cartoons.jpg)
 
-The software can run both on a desktop environment (OSX, Linux) such as a laptop, or an embedded environment on a raspberry pi.
+The software can run both on a desktop environment (OSX, Linux) such as a laptop, or an embedded environment on a raspberry pi. 
 
 ### Desktop installation (only tested on OSX and linux)
 
