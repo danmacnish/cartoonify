@@ -14,6 +14,7 @@ The software can run both on a desktop environment (OSX, Linux) such as a laptop
 
 - Requirements:
     * Python 2.7*
+    * Cairo (on OSX `brew install cairo`)
 - install dependencies using `pip install -r requirements_desktop.txt` from the `cartoonify` subdirectory.
 - run app from command line using `python run.py`.
 - select 'yes' when asked to download the cartoon dataset (~5GB) and tensorflow model (~100MB).
