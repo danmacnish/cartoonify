@@ -61,7 +61,7 @@ def build(post_processing_config):
 
 
 def _build_non_max_suppressor(nms_config):
-  """Builds non-max suppresson based on the nms config.
+  """Builds non-max suppression based on the nms config.
 
   Args:
     nms_config: post_processing_pb2.PostProcessing.BatchNonMaxSuppression proto.
