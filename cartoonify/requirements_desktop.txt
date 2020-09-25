@@ -1,5 +1,5 @@
 remi==0.1
-tensorflow==1.4.0
+tensorflow==1.15.4
 tensorflow-tensorboard==0.4.0rc3
 terminado==0.6
 testpath==0.3.1
