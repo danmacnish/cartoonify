@@ -4,7 +4,7 @@ tensorflow-tensorboard==0.4.0rc3
 terminado==0.6
 testpath==0.3.1
 tornado==4.5.2
-bleach==1.5.0
+bleach==3.3.0
 cairocffi==0.8.0
 certifi==2017.11.5
 cffi==1.11.2
