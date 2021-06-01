@@ -27,7 +27,7 @@ pytz==2017.3
 remi==0.1
 requests==2.18.4
 six==1.11.0
-urllib3==1.22
+urllib3==1.26.5
 Werkzeug==0.14.1
 pathlib
 mock
