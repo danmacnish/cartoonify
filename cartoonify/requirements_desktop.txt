@@ -13,7 +13,7 @@ click==6.7
 cycler==0.10.0
 enum34==1.1.6
 gizeh==0.1.10
-html5lib==0.9999999
+html5lib==0.99999999
 idna==2.6
 jsonlines==1.2.0
 Markdown==2.6.10
